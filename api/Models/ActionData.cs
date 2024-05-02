@@ -7,7 +7,6 @@ namespace api.Models
     {
         public int Id { get; set; }        
         
-        public int UserId { get; set; }
         
         [Required]
         [StringLength(100)]
@@ -20,8 +19,10 @@ namespace api.Models
         public DateTime Timestamp { get; set; } = DateTime.Now;
         // Dodajte dodatne informacije koje želite pratiti
 
-        // Foreign key for RegisteredUser
-        public int RegisteredUserId { get; set; }
-        public RegisteredUser? RegisteredUser { get; set; } // Navigation property
+        // Foreign key for AppUser
+        [Required]
+        public string AppUserId { get; set; } = string.Empty;
+
+        public AppUser? AppUser { get; set; }
     }
 }
