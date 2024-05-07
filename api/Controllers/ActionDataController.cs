@@ -1,12 +1,18 @@
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using api.Extensions;
 using api.Data;
 using api.Models;
+using api.Interfaces;
+using api.QueryObjects;
+using api.Dtos.ActionData;
+using api.Mappers;
 
 namespace api.Controllers
 {
@@ -16,14 +22,18 @@ namespace api.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IActionDataRepository _actionDataRepo;
-        public ActionDataController(ApplicationDbContext context, IActionDataRepository actionDataRepo)
+
+        private readonly UserManager<AppUser> _userManager;
+
+        public ActionDataController(ApplicationDbContext context, IActionDataRepository actionDataRepo, UserManager<AppUser> userManager)
         {
             _actionDataRepo = actionDataRepo;
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] actionDataQueryObject query)
+        public async Task<IActionResult> GetAll([FromQuery] ActionDataQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -35,8 +45,8 @@ namespace api.Controllers
             return Ok(actionDataDto);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] string id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -48,41 +58,50 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(ActionData.ToActionDataDto());
+            return Ok(actionData.ToActionDataDto());
         }
 
-        [Route("{ArticleId}, {UserId}")]
-        public async Task<IActionResult> Create([FromRoute] int articleId, int userId, actionDataDto ActionDataDto)
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ActionDataCreateDto actionDataCreateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //RegisteredUser and Article will be added when finishing routes for it...
-            var actionDataModel = actionDataDto.ToActionDataFromCreate(articleId, userId);
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            var actionDataModel = actionDataCreateDto.ToActionDataFromCreateDto();
+            actionDataModel.Id = Guid.NewGuid().ToString();
+            actionDataModel.AppUserId = appUser.Id;
             await _actionDataRepo.CreateAsync(actionDataModel);
-            return CreatedAtAction(nameof(GetById), new { id = actionDataModel.Id }, actionDataModel.ToActionDataDto());
+            return Ok(actionDataModel.ToActionDataDto());
         }
 
-        [HttpPut]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateActionDataRequestDto updateDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] ActionDataUpdateDto actionDataUpdateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            var actionDataModel = actionDataUpdateDto.ToActionDataFromUpdateDto();
+            actionDataModel.AppUserId = appUser.Id;
+            actionDataModel.Id = id;
+            actionDataModel = await _actionDataRepo.UpdateAsync(id, actionDataModel);
 
-            var actionData = await _actionDataRepo.UpdateAsync(id, updateDto.ToActionDataFromUpdate(id));
-
-            if (actionData == null)
+            if (actionDataModel == null)
             {
                 return NotFound("ActionData not found");
             }
 
-            return Ok(ActionData.ToActionDataDto());
+            return Ok(actionDataModel.ToActionDataDto());
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -97,4 +116,4 @@ namespace api.Controllers
             return Ok(actionDataModel);
         }
     }
-}*/
+}

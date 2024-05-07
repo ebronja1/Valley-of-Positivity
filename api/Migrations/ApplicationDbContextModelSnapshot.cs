@@ -50,13 +50,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5431a49b-9242-4ec7-80fc-bf800203e1ee",
+                            Id = "87044756-02a7-4174-8cd1-f2805134735f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4628352e-3f2e-4d2f-85d3-890a26b90aab",
+                            Id = "01455578-b8d5-4b00-bb85-4f67ad6dfb7a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -170,11 +170,8 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.ActionData", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Action")
                         .IsRequired()
@@ -185,10 +182,13 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Element")
+                    b.Property<string>("ElementClass")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime(6)");

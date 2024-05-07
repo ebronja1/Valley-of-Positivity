@@ -5,8 +5,8 @@ namespace api.Models
 {
     public class ActionData
     {
-        public int Id { get; set; }        
-        
+        [Required]
+        public string Id { get; set; } = string.Empty;      
         
         [Required]
         [StringLength(100)]
@@ -14,11 +14,13 @@ namespace api.Models
         
         [Required]
         [StringLength(100)]
-        public string Element { get; set; } = string.Empty;
+        public string ElementClass { get; set; } = string.Empty;
        
         public DateTime Timestamp { get; set; } = DateTime.Now;
-        // Dodajte dodatne informacije koje želite pratiti
-
+        
+        [Required]
+        public int Quantity { get; set; } = 0;
+        
         // Foreign key for AppUser
         [Required]
         public string AppUserId { get; set; } = string.Empty;
