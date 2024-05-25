@@ -16,7 +16,7 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/Photo")]
+    [Route("api/photo")]
     [ApiController]
     public class PhotoController : ControllerBase
     {
@@ -40,9 +40,14 @@ namespace api.Controllers
 
             var photos = await _photoRepo.GetAllAsync(query);
 
-            var photoDto = photos.Select(s => s.ToPhotoDto()).ToList();
+            var photoDtoList = photos.Select(s => s.ToPhotoDto()).ToList();
 
-            return Ok(photoDto);
+            if (!photoDtoList.Any())
+            {
+                return NotFound("Photo not found");
+            }
+
+            return Ok(photoDtoList);
         }
 
         [HttpGet("{id:int}")]

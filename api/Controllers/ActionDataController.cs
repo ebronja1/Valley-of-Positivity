@@ -16,7 +16,7 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/ActionData")]
+    [Route("api/actionData")]
     [ApiController]
     public class ActionDataController : ControllerBase
     {
@@ -40,9 +40,14 @@ namespace api.Controllers
 
             var actionDatas = await _actionDataRepo.GetAllAsync(query);
 
-            var actionDataDto = actionDatas.Select(s => s.ToActionDataDto()).ToList();
+            var actionDataDtoList = actionDatas.Select(s => s.ToActionDataDto()).ToList();
 
-            return Ok(actionDataDto);
+             if (!actionDataDtoList.Any())
+            {
+                return NotFound("ActionData not found");
+            }
+
+            return Ok(actionDataDtoList);
         }
 
         [HttpGet("{id}")]
