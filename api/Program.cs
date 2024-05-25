@@ -55,7 +55,7 @@ builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =
     var config = serviceProvider.GetRequiredService<IConfiguration>();
     options.UseMySql(
         config["ConnectionStrings:DefaultConnection"],
-        new MySqlServerVersion(new Version(8, 0, 36)));
+        new MySqlServerVersion(new Version(8, 0, 30)));
 });
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>

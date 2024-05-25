@@ -22,7 +22,7 @@ namespace api.Data
         public DbSet<Diary> Diaries { get; set; }
         public DbSet<DiaryNote> DiaryNotes { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Photo> Quote { get; set; }
+        public DbSet<Photo> Quotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
