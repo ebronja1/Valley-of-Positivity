@@ -3,10 +3,16 @@ Valley Of Positivity is a web application designed to spread positivity and insp
 
 Features
 User authentication: Allows users to sign up, log in, and log out securely.
+
 Daily quotes: Displays a new motivational quote each day to inspire users.
+
 Diary entries: Enables users to create and manage diary entries to reflect on their daily experiences.
+
 User-friendly interface: Provides an intuitive and easy-to-use interface for seamless navigation.
+
 Technologies Used
+
+
 Frontend: HTML, CSS, JavaScript
 Backend: ASP.NET Core, Entity Framework Core
 Database: MySQL
@@ -43,4 +49,5 @@ License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 Acknowledgements
+
 This project was inspired by the power of positivity and the desire to create a supportive online community.
