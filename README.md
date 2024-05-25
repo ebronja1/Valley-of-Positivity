@@ -1,7 +1,11 @@
 Valley Of Positivity
+
+
 Valley Of Positivity is a web application designed to spread positivity and inspire users with daily motivational quotes, photos and other features to help them have pleasant mood. Users can sign up, log in, and browse through a collection of uplifting quotes. They can also create their own diary entries to reflect on their daily experiences and thoughts.
 
 Features
+
+
 User authentication: Allows users to sign up, log in, and log out securely.
 
 Daily quotes: Displays a new motivational quote each day to inspire users.
@@ -45,8 +49,6 @@ Create a new branch (git checkout -b feature-branch).
 Make your changes and commit them (git commit -am 'Add new feature').
 Push your changes to the branch (git push origin feature-branch).
 Create a new pull request.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 Acknowledgements
 
