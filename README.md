@@ -19,7 +19,7 @@ Clone the repository:
 
 bash
 Kopiraj kod
-git clone https://github.com/your-username/valley-of-positivity.git
+git clone https://github.com/ebronja1/valley-of-positivity.git
 Set up the database:
 
 Install MySQL and create a new database for the application.
