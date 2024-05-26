@@ -33,17 +33,28 @@ namespace api.Mappers
                 AppUserId = string.Empty,
             };
         }
-        public static ActionData ToActionDataFromUpdateDto (this ActionDataUpdateDto actionDataUpdateDto)
+        public static void UpdateFromDto(this ActionData actionData, ActionDataUpdateDto dto)
         {
-            return new ActionData
+            if (dto.Action != null)
             {
-                Id = string.Empty,
-                Action = actionDataUpdateDto.Action,
-                ElementClass = actionDataUpdateDto.ElementClass,
-                Quantity = actionDataUpdateDto.Quantity,
-                AppUserId = string.Empty,
-            };
+                actionData.Action = dto.Action;
+            }
+            if (dto.ElementClass != null)
+            {
+                actionData.ElementClass = dto.ElementClass;
+            }
+            if (dto.Timestamp.HasValue)
+            {
+                actionData.Timestamp = dto.Timestamp.Value;
+            }
+            if (dto.Quantity.HasValue)
+            {
+                actionData.Quantity = dto.Quantity.Value;
+            }
+            if (dto.AppUserId != null)
+            {
+                actionData.AppUserId = dto.AppUserId;
+            }
         }
-
     }
 }

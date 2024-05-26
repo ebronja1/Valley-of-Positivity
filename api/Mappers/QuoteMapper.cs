@@ -29,14 +29,21 @@ namespace api.Mappers
                 Type = quoteCreateDto.Type,
             };
         }
-        public static Quote ToQuoteFromUpdateDto (this QuoteUpdateDto quoteUpdateDto)
+
+        public static void UpdateFromDto(this Quote quote, QuoteUpdateDto dto)
         {
-            return new Quote
+            if (dto.Text != null)
             {
-                Text = quoteUpdateDto.Text,
-                Author = quoteUpdateDto.Author,
-                Type = quoteUpdateDto.Type,
-            };
+                quote.Text = dto.Text;
+            }
+            if (dto.Author != null)
+            {
+                quote.Author = dto.Author;
+            }
+            if (dto.Type.HasValue)
+            {
+                quote.Type = dto.Type.Value;
+            }
         }
 
     }

@@ -7,6 +7,8 @@ using api.QueryObjects;
 using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
+using api.Dtos.Quote;
+using api.Mappers;
 
 namespace api.Repositories
 {
@@ -60,7 +62,8 @@ namespace api.Repositories
             return await _context.Quotes.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Quote?> UpdateAsync(int id, Quote updatedQuote)
+
+        public async Task<Quote?> UpdateAsync(int id, QuoteUpdateDto updatedQuoteDto)
         {
             var existingQuote = await _context.Quotes.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -69,9 +72,7 @@ namespace api.Repositories
                 return null;
             }
 
-            existingQuote.Text = updatedQuote.Text;
-            existingQuote.Author = updatedQuote.Author;
-            existingQuote.Type = updatedQuote.Type;
+            existingQuote.UpdateFromDto(updatedQuoteDto);
 
             await _context.SaveChangesAsync();
 

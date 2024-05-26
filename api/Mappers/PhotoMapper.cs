@@ -29,15 +29,21 @@ namespace api.Mappers
                 Type = photoCreateDto.Type,
             };
         }
-        public static Photo ToPhotoFromUpdateDto (this PhotoUpdateDto photoUpdateDto)
+        public static void UpdateFromDto(this Photo photo, PhotoUpdateDto dto)
         {
-            return new Photo
+            if (dto.Title != null)
             {
-                Title = photoUpdateDto.Title,
-                ImageUrl = string.Empty,
-                Type = photoUpdateDto.Type,
-            };
+                photo.Title = dto.Title;
+            }
+            if (dto.ImageUrl != null)
+            {
+                photo.ImageUrl = dto.ImageUrl;
+            }
+            if (dto.Type.HasValue)
+            {
+                photo.Type = dto.Type.Value;
+            }
         }
-
     }
+
 }

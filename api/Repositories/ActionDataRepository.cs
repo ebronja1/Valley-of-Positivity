@@ -8,6 +8,7 @@ using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
 using api.Mappers;
+using api.Dtos.ActionData;
 
 namespace api.Repositories
 {
@@ -65,7 +66,7 @@ namespace api.Repositories
             return await _context.ActionDatas.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<ActionData?> UpdateAsync(string id, ActionData updatedActionData)
+        public async Task<ActionData?> UpdateAsync(string id, ActionDataUpdateDto updatedActionDataDto)
         {
             var existingActionData = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -74,13 +75,12 @@ namespace api.Repositories
                 return null;
             }
 
-            existingActionData.Action = updatedActionData.Action;
-            existingActionData.ElementClass = updatedActionData.ElementClass;
-            existingActionData.Quantity = updatedActionData.Quantity;
+            existingActionData.UpdateFromDto(updatedActionDataDto);
 
             await _context.SaveChangesAsync();
 
             return existingActionData;
         }
+
     }
 }
