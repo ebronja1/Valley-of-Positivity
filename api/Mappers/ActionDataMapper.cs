@@ -26,7 +26,6 @@ namespace api.Mappers
         {
             return new ActionData
             {
-                Id = string.Empty,
                 Action = actionDataCreateDto.Action,
                 ElementClass = actionDataCreateDto.ElementClass,
                 Quantity = actionDataCreateDto.Quantity,
@@ -50,10 +49,6 @@ namespace api.Mappers
             if (dto.Quantity.HasValue)
             {
                 actionData.Quantity = dto.Quantity.Value;
-            }
-            if (dto.AppUserId != null)
-            {
-                actionData.AppUserId = dto.AppUserId;
             }
         }
     }
