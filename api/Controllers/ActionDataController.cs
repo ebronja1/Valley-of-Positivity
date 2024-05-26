@@ -87,22 +87,20 @@ namespace api.Controllers
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] ActionDataUpdateDto actionDataUpdateDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            var username = User.GetUsername();
-            var appUser = await _userManager.FindByNameAsync(username);
-            var actionDataModel = actionDataUpdateDto.ToActionDataFromUpdateDto();
-            actionDataModel.AppUserId = appUser.Id;
-            actionDataModel.Id = id;
-            actionDataModel = await _actionDataRepo.UpdateAsync(id, actionDataModel);
-
-            if (actionDataModel == null)
             {
-                return NotFound("ActionData not found");
+                return BadRequest(ModelState);
             }
 
-            return Ok(actionDataModel.ToActionDataDto());
+            var updatedActionData = await _actionDataRepo.UpdateAsync(id, actionDataUpdateDto);
+
+            if (updatedActionData == null)
+            {
+                return NotFound("Action data not found!");
+            }
+
+            return Ok(updatedActionData);
         }
+
 
         [HttpDelete]
         [Route("{id}")]

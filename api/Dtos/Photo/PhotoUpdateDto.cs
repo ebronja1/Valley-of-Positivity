@@ -8,7 +8,9 @@ namespace api.Dtos.Photo
 {
     public class PhotoUpdateDto
     {
-        public string Title { get; set; } = string.Empty;
-        public PhotoType Type { get; set; }
+        public string? Title { get; set; }
+        public PhotoType? Type { get; set; }
+
+        public string? ImageUrl { get; set; }
     }
 }

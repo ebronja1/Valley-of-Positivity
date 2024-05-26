@@ -77,22 +77,25 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = quoteModel.Id }, quoteModel.ToQuoteDto());
         }
 
+
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] QuoteUpdateDto quoteUpdateDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            var quoteModel = quoteUpdateDto.ToQuoteFromUpdateDto();
-            quoteModel = await _quoteRepo.UpdateAsync(id, quoteModel);
-
-            if (quoteModel == null)
             {
-                return NotFound("quote not found");
+                return BadRequest(ModelState);
             }
 
-            return Ok(quoteModel.ToQuoteDto());
+            var updatedQuote = await _quoteRepo.UpdateAsync(id, quoteUpdateDto);
+
+            if (updatedQuote == null)
+            {
+                return NotFound("Quote not found!");
+            }
+
+            return Ok(updatedQuote.ToQuoteDto());
         }
+
 
         [HttpDelete]
         [Route("{id:int}")]

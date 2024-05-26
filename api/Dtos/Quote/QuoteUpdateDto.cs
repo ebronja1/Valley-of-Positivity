@@ -6,10 +6,10 @@ namespace api.Dtos.Quote
     public class QuoteUpdateDto
     {
 
-        public string Text { get; set; } = string.Empty;
+        public string? Text { get; set; }
 
-        public string Author { get; set; } = string.Empty;
+        public string? Author { get; set; }
 
-        public QuoteType Type { get; set; }
+        public QuoteType? Type { get; set; }
     }
 }

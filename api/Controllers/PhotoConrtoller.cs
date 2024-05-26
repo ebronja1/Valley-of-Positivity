@@ -81,18 +81,20 @@ namespace api.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PhotoUpdateDto photoUpdateDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            var photoModel = photoUpdateDto.ToPhotoFromUpdateDto();
-            photoModel = await _photoRepo.UpdateAsync(id, photoModel);
-
-            if (photoModel == null)
             {
-                return NotFound("Photo not found");
+                return BadRequest(ModelState);
             }
 
-            return Ok(photoModel.ToPhotoDto());
+            var updatedPhoto = await _photoRepo.UpdateAsync(id, photoUpdateDto);
+
+            if (updatedPhoto == null)
+            {
+                return NotFound("Photo not found!");
+            }
+
+            return Ok(updatedPhoto);
         }
+
 
         [HttpDelete]
         [Route("{id:int}")]
