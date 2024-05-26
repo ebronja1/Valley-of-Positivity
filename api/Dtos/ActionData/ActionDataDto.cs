@@ -7,7 +7,7 @@ namespace api.Dtos.ActionData
 {
     public class ActionDataDto
     {
-        public string Id { get; set; } = string.Empty;
+        public int Id { get; set; }
         
         public string Action { get; set; } = string.Empty;
         

@@ -5,8 +5,7 @@ namespace api.Models
 {
     public class ActionData
     {
-        [Required]
-        public string Id { get; set; } = string.Empty;      
+        public int Id { get; set; }      
         
         [Required]
         [StringLength(100)]

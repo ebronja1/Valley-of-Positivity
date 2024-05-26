@@ -27,7 +27,7 @@ namespace api.Repositories
             return actionDataModel;
         }
 
-        public async Task<ActionData?> DeleteAsync(string id)
+        public async Task<ActionData?> DeleteAsync(int id)
         {
             var actionDataModel = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -61,12 +61,12 @@ namespace api.Repositories
             return await actionDatas.ToListAsync();
         }
 
-        public async Task<ActionData?> GetByIdAsync(string id)
+        public async Task<ActionData?> GetByIdAsync(int id)
         {
             return await _context.ActionDatas.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<ActionData?> UpdateAsync(string id, ActionDataUpdateDto updatedActionDataDto)
+        public async Task<ActionData?> UpdateAsync(int id, ActionDataUpdateDto updatedActionDataDto)
         {
             var existingActionData = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == id);
 

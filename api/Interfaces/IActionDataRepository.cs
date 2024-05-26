@@ -11,9 +11,9 @@ namespace api.Interfaces
     public interface IActionDataRepository
     {
         Task<List<ActionData>> GetAllAsync(ActionDataQueryObject queryObject);
-        Task<ActionData?> GetByIdAsync(string id);
+        Task<ActionData?> GetByIdAsync(int id);
         Task<ActionData> CreateAsync(ActionData actionDataModel);
-        Task<ActionData?> UpdateAsync(string id, ActionDataUpdateDto actionDataUpdateDto);
-        Task<ActionData?> DeleteAsync(string id);
+        Task<ActionData?> UpdateAsync(int id, ActionDataUpdateDto actionDataUpdateDto);
+        Task<ActionData?> DeleteAsync(int id);
     }
 }

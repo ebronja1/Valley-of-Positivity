@@ -50,13 +50,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dcb41fdf-ff7c-4cf6-9782-e2cac51543db",
+                            Id = "c3d34c14-bd83-48c3-b6e5-0108c0aa2f37",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "98ba0db0-f9aa-4bc5-8542-6da29defa451",
+                            Id = "c5961f2b-38af-478e-a36d-890dd96999ba",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -170,8 +170,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.ActionData", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Action")
                         .IsRequired()
