@@ -42,7 +42,7 @@ namespace api.Controllers
 
             var actionDataDtoList = actionDatas.Select(s => s.ToActionDataDto()).ToList();
 
-             if (!actionDataDtoList.Any())
+            if (!actionDataDtoList.Any())
             {
                 return NotFound("ActionData not found");
             }
@@ -78,6 +78,7 @@ namespace api.Controllers
 
             var actionDataModel = actionDataCreateDto.ToActionDataFromCreateDto();
             actionDataModel.AppUserId = appUser.Id;
+            
             await _actionDataRepo.CreateAsync(actionDataModel);
             return Ok(actionDataModel.ToActionDataDto());
         }

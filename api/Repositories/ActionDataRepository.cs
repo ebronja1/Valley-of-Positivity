@@ -29,7 +29,7 @@ namespace api.Repositories
 
         public async Task<ActionData?> DeleteAsync(int id)
         {
-            var actionDataModel = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == id);
+            var actionDataModel = await _context.ActionDatas.FirstOrDefaultAsync(ad => ad.Id == id);
 
             if (actionDataModel == null)
             {
@@ -56,14 +56,14 @@ namespace api.Repositories
 
             if (queryObject.IsDecsending == true)
             {
-                actionDatas = actionDatas.OrderByDescending(c => c.Timestamp);
+                actionDatas = actionDatas.OrderByDescending(ad => ad.Timestamp);
             }
             return await actionDatas.ToListAsync();
         }
 
         public async Task<ActionData?> GetByIdAsync(int id)
         {
-            return await _context.ActionDatas.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.ActionDatas.Include(ad => ad.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<ActionData?> UpdateAsync(int id, ActionDataUpdateDto updatedActionDataDto)
