@@ -6,7 +6,9 @@ namespace api.Models
     public class Diary
     {
         public int Id { get; set; }
-
+        
+        public string Title { get; set; } = string.Empty;
+        
         // Foreign key property
         [Required]
         public string AppUserId { get; set; } = string.Empty;

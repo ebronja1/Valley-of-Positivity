@@ -72,7 +72,7 @@ namespace api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Photo",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,7 +85,25 @@ namespace api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photo", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Quotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Author = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quotes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -118,8 +136,8 @@ namespace api.Migrations
                 name: "ActionDatas",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Action = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ElementClass = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -292,8 +310,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2cde3515-5b36-4f35-a865-494a69fb5d05", null, "User", "USER" },
-                    { "fca8cd6d-e537-47aa-b30f-d036e87f2803", null, "Admin", "ADMIN" }
+                    { "c3d34c14-bd83-48c3-b6e5-0108c0aa2f37", null, "Admin", "ADMIN" },
+                    { "c5961f2b-38af-478e-a36d-890dd96999ba", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -375,7 +393,10 @@ namespace api.Migrations
                 name: "DiaryNotes");
 
             migrationBuilder.DropTable(
-                name: "Photo");
+                name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "Quotes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

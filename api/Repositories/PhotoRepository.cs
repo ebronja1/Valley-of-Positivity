@@ -8,6 +8,7 @@ using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
 using api.Mappers;
+using api.Dtos.Photo;
 
 namespace api.Repositories
 {
@@ -61,7 +62,8 @@ namespace api.Repositories
             return await _context.Photos.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Photo?> UpdateAsync(int id, Photo updatedPhoto)
+
+        public async Task<Photo?> UpdateAsync(int id, PhotoUpdateDto updatePhotoDto)
         {
             var existingPhoto = await _context.Photos.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -70,8 +72,7 @@ namespace api.Repositories
                 return null;
             }
 
-            existingPhoto.Title = updatedPhoto.Title;
-            existingPhoto.Type = updatedPhoto.Type;
+            existingPhoto.UpdateFromDto(updatePhotoDto);
 
             await _context.SaveChangesAsync();
 

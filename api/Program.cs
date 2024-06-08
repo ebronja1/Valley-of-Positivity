@@ -94,6 +94,9 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IActionDataRepository, ActionDataRepository>();
 builder.Services.AddScoped<IActionDataRepository, ActionDataRepository>();
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+builder.Services.AddScoped<IDiaryRepository, DiaryRepository>();
+builder.Services.AddScoped<IDiaryNoteRepository, DiaryNoteRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();

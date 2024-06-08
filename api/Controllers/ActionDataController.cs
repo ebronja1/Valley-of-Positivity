@@ -16,7 +16,7 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/ActionData")]
+    [Route("api/actionData")]
     [ApiController]
     public class ActionDataController : ControllerBase
     {
@@ -40,13 +40,18 @@ namespace api.Controllers
 
             var actionDatas = await _actionDataRepo.GetAllAsync(query);
 
-            var actionDataDto = actionDatas.Select(s => s.ToActionDataDto()).ToList();
+            var actionDataDtoList = actionDatas.Select(s => s.ToActionDataDto()).ToList();
 
-            return Ok(actionDataDto);
+            if (!actionDataDtoList.Any())
+            {
+                return NotFound("ActionData not found");
+            }
+
+            return Ok(actionDataDtoList);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] string id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -72,36 +77,34 @@ namespace api.Controllers
             var appUser = await _userManager.FindByNameAsync(username);
 
             var actionDataModel = actionDataCreateDto.ToActionDataFromCreateDto();
-            actionDataModel.Id = Guid.NewGuid().ToString();
             actionDataModel.AppUserId = appUser.Id;
+            
             await _actionDataRepo.CreateAsync(actionDataModel);
             return Ok(actionDataModel.ToActionDataDto());
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] ActionDataUpdateDto actionDataUpdateDto)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ActionDataUpdateDto actionDataUpdateDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            var username = User.GetUsername();
-            var appUser = await _userManager.FindByNameAsync(username);
-            var actionDataModel = actionDataUpdateDto.ToActionDataFromUpdateDto();
-            actionDataModel.AppUserId = appUser.Id;
-            actionDataModel.Id = id;
-            actionDataModel = await _actionDataRepo.UpdateAsync(id, actionDataModel);
-
-            if (actionDataModel == null)
             {
-                return NotFound("ActionData not found");
+                return BadRequest(ModelState);
             }
 
-            return Ok(actionDataModel.ToActionDataDto());
+            var updatedActionData = await _actionDataRepo.UpdateAsync(id, actionDataUpdateDto);
+
+            if (updatedActionData == null)
+            {
+                return NotFound("Action data not found!");
+            }
+
+            return Ok(updatedActionData);
         }
 
+
         [HttpDelete]
-        [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] string id)
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

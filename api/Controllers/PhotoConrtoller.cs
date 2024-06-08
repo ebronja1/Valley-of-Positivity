@@ -16,7 +16,7 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/Photo")]
+    [Route("api/photo")]
     [ApiController]
     public class PhotoController : ControllerBase
     {
@@ -40,9 +40,14 @@ namespace api.Controllers
 
             var photos = await _photoRepo.GetAllAsync(query);
 
-            var photoDto = photos.Select(s => s.ToPhotoDto()).ToList();
+            var photoDtoList = photos.Select(s => s.ToPhotoDto()).ToList();
 
-            return Ok(photoDto);
+            if (!photoDtoList.Any())
+            {
+                return NotFound("Photo not found");
+            }
+
+            return Ok(photoDtoList);
         }
 
         [HttpGet("{id:int}")]
@@ -76,18 +81,20 @@ namespace api.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PhotoUpdateDto photoUpdateDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
-            var photoModel = photoUpdateDto.ToPhotoFromUpdateDto();
-            photoModel = await _photoRepo.UpdateAsync(id, photoModel);
-
-            if (photoModel == null)
             {
-                return NotFound("Photo not found");
+                return BadRequest(ModelState);
             }
 
-            return Ok(photoModel.ToPhotoDto());
+            var updatedPhoto = await _photoRepo.UpdateAsync(id, photoUpdateDto);
+
+            if (updatedPhoto == null)
+            {
+                return NotFound("Photo not found!");
+            }
+
+            return Ok(updatedPhoto);
         }
+
 
         [HttpDelete]
         [Route("{id:int}")]

@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240525113238_InitialCreate")]
+    [Migration("20240526124448_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -53,13 +53,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fca8cd6d-e537-47aa-b30f-d036e87f2803",
+                            Id = "c3d34c14-bd83-48c3-b6e5-0108c0aa2f37",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2cde3515-5b36-4f35-a865-494a69fb5d05",
+                            Id = "c5961f2b-38af-478e-a36d-890dd96999ba",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -173,8 +173,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.ActionData", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Action")
                         .IsRequired()
@@ -336,7 +339,33 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("api.Models.Quote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quotes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
