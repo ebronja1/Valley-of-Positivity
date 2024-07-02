@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-of-Positivity\\api\\api.csproj": {}
+    "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-Of-Positivity\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-of-Positivity\\api\\api.csproj": {
+    "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-Of-Positivity\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-of-Positivity\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-Of-Positivity\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-of-Positivity\\api\\api.csproj",
+        "projectPath": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-Of-Positivity\\api\\api.csproj",
         "packagesPath": "C:\\Users\\Emir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-of-Positivity\\api\\obj\\",
+        "outputPath": "C:\\Users\\Emir\\Desktop\\ValleyOfPositivity\\Valley-Of-Positivity\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Emir\\AppData\\Roaming\\NuGet\\NuGet.Config",
