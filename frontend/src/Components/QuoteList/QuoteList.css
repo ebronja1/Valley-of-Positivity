@@ -1,0 +1,15 @@
+.quote-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.quote-list p {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #343a40;
+}
+
+  
