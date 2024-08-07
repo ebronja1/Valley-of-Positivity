@@ -1,0 +1,28 @@
+/* src/Components/DiaryForm/DiaryForm.css */
+.diary-form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+  
+  .diary-form input,
+  .diary-form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .diary-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .diary-form button:hover {
+    background-color: #555;
+  }
+  

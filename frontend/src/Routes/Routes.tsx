@@ -6,6 +6,7 @@ import RegisterPage from '../Pages/RegisterPage/RegisterPage';
 import HomePage from '../Pages/HomePage/HomePage'; // Home page
 import QuotesPage from '../Pages/QuotesPage/QuotesPage'; // Quotes page
 import PhotosPage from '../Pages/PhotosPage/PhotosPage';
+import DiaryPage from '../Pages/DiaryPage/DiaryPage';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: 'register', element: <RegisterPage /> }, // Register route
       { path: 'quotes', element: <QuotesPage /> }, // Quotes route
       { path: 'photos', element: <PhotosPage /> }, // Photos route
+      { path: "diary", element: <DiaryPage /> },
       // Add other routes if necessary
     ],
   },
