@@ -2,12 +2,11 @@
 import React, { useState } from "react";
 
 interface DiaryFormProps {
-  handleAddNote: (note: { content: string;  diaryId: number }) => void;
+  onAddNote: (content: string) =>  Promise<void>;
 }
 
-const DiaryForm: React.FC<DiaryFormProps> = ({ handleAddNote }) => {
-  const [content, setContent] = useState<string>("");
-  const [diaryId, setDiaryId] = useState<number>(1);
+const DiaryForm: React.FC<DiaryFormProps> = ({ onAddNote }) => {
+  const [content, setContent] = useState("");
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
@@ -15,9 +14,8 @@ const DiaryForm: React.FC<DiaryFormProps> = ({ handleAddNote }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (content) {
-      handleAddNote({ content, diaryId});
+      onAddNote(content);
       setContent(""); // Clear content field
-      setDiaryId(1); // Clear date field
     }
   };
 
@@ -34,7 +32,7 @@ const DiaryForm: React.FC<DiaryFormProps> = ({ handleAddNote }) => {
           required
         />
       </div>
-      <button type="submit">Add Note</button>
+      <button type="submit">Add Entry</button>
     </form>
   );
 };

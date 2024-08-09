@@ -12,3 +12,14 @@ export interface DiaryNotePost {
   timestamp?: string;
   diaryId: number;
 }
+
+export interface DiaryModel {
+  id: number;
+  title: string;
+  diaryNotes?: DiaryNote[];
+}
+
+
+export interface DiaryQueryObject {
+  title: string;
+}

@@ -1,24 +1,36 @@
 // src/Components/DiaryList/DiaryList.tsx
 import React from "react";
-import { format } from "date-fns";
+import { format } from "date-fns"; // Assuming you're using date-fns for formatting
 import { DiaryNote } from "../../Models/DiaryModels";
-import { v4 as uuidv4 } from "uuid";
+
 
 interface DiaryListProps {
-  diaryNotes: DiaryNote[];
+  diaryNotes: DiaryNote[] | undefined;
 }
 
 const DiaryList: React.FC<DiaryListProps> = ({ diaryNotes }) => {
   return (
     <div className="diary-list">
-      {diaryNotes.map((note) => (
-        <div key={uuidv4()} className="diary-entry">
-          <p>{note.content}</p>
-          <p>{format(new Date(note.timestamp), "PPPpp")}</p> {/* Format the date */}
-        </div>
-      ))}
+      <h2>Diary Notes</h2>
+      {diaryNotes?.map((note) => {
+        // Handle invalid date by using a fallback value
+        const formattedDate = new Date(note.timestamp);
+        const dateStr = isNaN(formattedDate.getTime()) 
+          ? "Invalid date" 
+          : format(formattedDate, "MMMM dd, yyyy HH:mm:ss");
+
+        return (
+          <div key={note.id} className="diary-entry">
+            <p>{note.content}</p>
+            <p>{dateStr}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };
 
 export default DiaryList;
+
+
+

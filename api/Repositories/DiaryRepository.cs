@@ -41,9 +41,11 @@ namespace api.Repositories
             return diaryModel;
         }
 
+        
         public async Task<List<Diary>> GetAllAsync(DiaryQueryObject diaryQueryObject)
         {
-            var diaries = _context.Diaries.AsQueryable();
+            
+            var diaries = _context.Diaries.Include(c => c.DiaryNotes).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(diaryQueryObject.Title))
             {
@@ -55,7 +57,17 @@ namespace api.Repositories
 
         public async Task<Diary?> GetByIdAsync(int id)
         {
-            return await _context.Diaries.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Diaries
+                .Include(d => d.DiaryNotes) // Include related DiaryNotes
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        
+        public async Task<Diary?> GetByUserIdAsync(string userId)
+        {
+            return await _context.Diaries
+                .Include(d => d.DiaryNotes) // Include related DiaryNotes
+                .FirstOrDefaultAsync(d => d.AppUserId == userId);
         }
 
 

@@ -50,6 +50,20 @@ namespace api.Controllers
             return Ok(diaryDtoList);
         }
 
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUserDiary()
+        {
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            // Get user id from token
+            var diary = await _diaryRepo.GetByUserIdAsync(appUser.Id);
+            if (diary == null)
+            {
+                return NotFound();
+            }
+            return Ok(diary.ToDiaryDto());
+        }
+
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -65,6 +79,7 @@ namespace api.Controllers
 
             return Ok(diary.ToDiaryDto());
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] DiaryCreateDto diaryCreateDto)
@@ -115,6 +130,18 @@ namespace api.Controllers
             }
 
             return Ok(diaryModel);
+        }
+
+        [HttpPut("{diaryId}")]
+        public async Task<IActionResult> UpdateDiaryTitle([FromRoute] int diaryId, [FromBody] DiaryUpdateDto diaryUpdateDto)
+        {
+            var diary = await _diaryRepo.GetByIdAsync(diaryId);
+            if (diary == null)
+            {
+                return NotFound();
+            }
+            await _diaryRepo.UpdateAsync(diaryId, diaryUpdateDto);
+            return NoContent();
         }
 
     }
