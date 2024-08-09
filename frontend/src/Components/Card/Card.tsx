@@ -16,4 +16,6 @@ const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }) => {
   );
 };
 
+
+
 export default Card;
