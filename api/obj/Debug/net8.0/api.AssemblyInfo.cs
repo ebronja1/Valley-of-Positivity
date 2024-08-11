@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bb06f054fd7a2bd778f44cf481e9f1af86ea4d5")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7562f0d74ea589cd2e35983e3c82f769cb1271ed")]
->>>>>>> action-data-feature
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff07d080ac0d7fb4267cb2c83a8def10b2d1ed87")]
 [assembly: System.Reflection.AssemblyProductAttribute("api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
