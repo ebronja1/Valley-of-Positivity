@@ -53,7 +53,6 @@ namespace api.Repositories
             {
                 actionDatas = actionDatas.Where(a => a.Action == queryObject.Action);
             };
-
             if (queryObject.IsDecsending == true)
             {
                 actionDatas = actionDatas.OrderByDescending(ad => ad.Timestamp);
