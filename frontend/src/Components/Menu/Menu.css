@@ -1,4 +1,4 @@
-/* Menu.css */
+/* Menu.css handling look from database */
 
 .menu-item {
   font-size: 1em;
@@ -23,7 +23,7 @@
 
 
 
-/* Menu.css */
+/* Menu.css look*/
 
 .menu {
   background-color: #333;
@@ -148,4 +148,31 @@
   .menu-left img {
     margin-bottom: 15px;
   }
+}
+
+
+/*Handling icon*/
+.menu-icon-item {
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.menu-icon-item:hover {
+  color: #f0a500;
+}
+
+.menu-item {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.most-clicked {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.least-clicked {
+  font-size: 14px;
+  color: #bbb;
 }
