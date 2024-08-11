@@ -123,10 +123,10 @@ export const UserProvider = ({ children }: Props) => {
         await saveActions(action);
       }
 
-      // Proceed with the actual logout call
+      /*// Proceed with the actual logout call
       await axios.post(`${API_BASE_URL}/account/logout`, {}, {
         withCredentials: true,
-      });
+      });*/
 
       // Handle successful logout
       localStorage.removeItem('actions');
