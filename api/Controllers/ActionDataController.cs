@@ -31,12 +31,16 @@ namespace api.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] ActionDataQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            query.AppUserId = appUser.Id;
 
             var actionDatas = await _actionDataRepo.GetAllAsync(query);
 
@@ -50,6 +54,7 @@ namespace api.Controllers
             return Ok(actionDataDtoList);
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -83,6 +88,7 @@ namespace api.Controllers
             return Ok(actionDataModel.ToActionDataDto());
         }
 
+        [Authorize]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ActionDataUpdateDto actionDataUpdateDto)
         {
@@ -101,7 +107,7 @@ namespace api.Controllers
             return Ok(updatedActionData);
         }
 
-
+        [Authorize]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
