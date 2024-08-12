@@ -1,0 +1,28 @@
+.photo-page {
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .photo-page h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .photo-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .no-photos {
+    font-size: 1.2em;
+    color: #999;
+    text-align: center;
+    margin-top: 20px;
+  }
+  

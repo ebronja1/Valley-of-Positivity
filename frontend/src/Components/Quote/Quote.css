@@ -1,19 +1,40 @@
-.quote-card {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .quote-card p {
-    margin: 0.5rem 0;
-  }
-  
-  .quote-card strong {
-    display: block;
-    text-align: right;
-    margin-top: 0.5rem;
-    font-weight: bold;
-  }
-  
+.quote {
+  background-color: #222;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 1.2em;
+  font-style: italic;
+  position: relative;
+}
+
+.quote p {
+  margin: 0;
+}
+
+.quote p:last-child {
+  text-align: right;
+  color: #f0a500;
+  margin-top: 10px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.quote::before {
+  content: "“";
+  font-size: 2em;
+  color: #f0a500;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+
+.quote::after {
+  content: "”";
+  font-size: 2em;
+  color: #f0a500;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+}

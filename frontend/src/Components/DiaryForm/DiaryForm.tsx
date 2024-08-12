@@ -1,5 +1,6 @@
 // src/Components/DiaryForm/DiaryForm.tsx
 import React, { useState } from "react";
+import "./DiaryForm.css";
 
 interface DiaryFormProps {
   onAddNote: (content: string) =>  Promise<void>;
@@ -32,7 +33,7 @@ const DiaryForm: React.FC<DiaryFormProps> = ({ onAddNote }) => {
           required
         />
       </div>
-      <button type="submit">Add Entry</button>
+      <button type="submit">Add Note</button>
     </form>
   );
 };

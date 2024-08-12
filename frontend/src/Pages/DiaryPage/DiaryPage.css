@@ -1,0 +1,82 @@
+/* DiaryPage.css */
+.diary-page {
+    background-color: #f4f4f4;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .diary-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .diary-header h3 {
+    margin-right: 15px;
+    font-size: 1.5em;
+  }
+  
+  .diary-header input {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .diary-header input:focus {
+    border-color: #f0a500;
+    outline: none;
+  }
+  
+  .diary-header button {
+    padding: 8px 15px;
+    background-color: #f0a500;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .diary-header button:hover {
+    background-color: #d48a00;
+  }
+  
+  .create-diary {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .create-diary input {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .create-diary input:focus {
+    border-color: #f0a500;
+    outline: none;
+  }
+  
+  .create-diary button {
+    padding: 8px 15px;
+    background-color: #f0a500;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-diary button:hover {
+    background-color: #d48a00;
+  }
