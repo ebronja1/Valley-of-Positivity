@@ -2,7 +2,7 @@
 import React from "react";
 import { format } from "date-fns"; // Assuming you're using date-fns for formatting
 import { DiaryNote } from "../../Models/DiaryModels";
-
+import "./DiaryList.css";
 
 interface DiaryListProps {
   diaryNotes: DiaryNote[] | undefined;

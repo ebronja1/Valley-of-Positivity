@@ -4,6 +4,7 @@ import { fetchQuotes } from "../../Services/QuoteService";
 import { QuoteModel, QuoteQueryObject } from "../../Models/QuoteModels";
 import { v4 as uuidv4 } from "uuid";
 import Quote from "../Quote/Quote";
+import "./QuoteList.css";
 
 interface QuoteListProps {
   quoteQuery: QuoteQueryObject;
@@ -26,7 +27,7 @@ const QuoteList: React.FC<QuoteListProps> = ({ quoteQuery }) => {
   }, [quoteQuery]);
 
   return (
-    <div>
+    <div className="quote-list">
       {quotes.length > 0 ? (
         quotes.map((quote) => (
           <Quote key={uuidv4()} quote={quote} />

@@ -1,5 +1,6 @@
 // src/Components/Quote/Quote.tsx
 import React from "react";
+import "./Quote.css";
 
 interface QuoteProps {
   quote: any; // Define the appropriate type based on your API response

@@ -9,6 +9,7 @@ import {
   addDiaryNote
 } from "../../Services/DiaryService";
 import { DiaryModel, DiaryNote } from "../../Models/DiaryModels";
+import "./DiaryPage.css";
 
 const DiaryPage: React.FC = () => {
   const [diaryNotes, setDiaryNotes] = useState<DiaryNote[] | undefined>([]);
