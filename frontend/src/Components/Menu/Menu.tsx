@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "./logo.png";
 import "./Menu.css";
 import { useAuth } from "../../Context/useAuth";
 import { QuoteQueryObject, QuoteType } from "../../Models/QuoteModels";
@@ -82,14 +81,55 @@ const Menu: React.FC<MenuProps> = ({ onQuoteTypeChange, onMenuClick, onPhotoType
 
   const shouldShowAsIcon = (menuItem: string) => {
     if (!mostClickedMenuItem || !clickCounts[mostClickedMenuItem] || !clickCounts[menuItem]) return false;
-    return clickCounts[menuItem] <= clickCounts[mostClickedMenuItem] + 5;
+    return (clickCounts[menuItem] + 5) < clickCounts[mostClickedMenuItem];
   };
 
-  const renderMenuItem = (menuItem: string, label: string, icon: JSX.Element, link: string) => {
+  const renderMenuItem = (menuItem: string, label: string, icon: JSX.Element, link: string, hasDropdown: boolean = false) => {
     if (shouldShowAsIcon(menuItem)) {
       return (
         <div className="menu-icon-item" title={label} onClick={() => handleMenuClick(menuItem)}>
           <Link to={link}>{icon}</Link>
+        </div>
+      );
+    }
+    if (hasDropdown) {
+      return (
+        <div
+          className={getClassForMenuItem(menuItem)}
+          onMouseEnter={menuItem === "Quotes" ? () => setIsDropdownOpenQuote(true) : () => setIsDropdownOpenPhoto(true)}
+          onMouseLeave={menuItem === "Quotes" ? () => setIsDropdownOpenQuote(false) : () => setIsDropdownOpenPhoto(false)}
+        >
+          <Link to={link} onClick={() => handleMenuClick(menuItem)}>{label}</Link>
+          {menuItem === "Quotes" && isDropdownOpenQuote && (
+            <div className="dropdown-menu">
+              {Object.keys(QuoteType)
+                .filter((key) => isNaN(Number(key)))
+                .map((key) => (
+                  <a
+                    key={key}
+                    className={getClassForDropdownItem(key, "quote-type")}
+                    onClick={() => handleDropdownClickQuote(QuoteType[key as keyof typeof QuoteType])}
+                  >
+                    {key}
+                  </a>
+                ))}
+            </div>
+          )}
+          {menuItem === "Photos" && isDropdownOpenPhoto && (
+            <div className="dropdown-menu">
+              {Object.keys(PhotoType)
+                .filter((key) => isNaN(Number(key)))
+                .map((key) => (
+                  <a
+                    key={key}
+                    className={getClassForDropdownItem(key, "photo-type")}
+                    onClick={() => handleDropdownClickPhoto(PhotoType[key as keyof typeof PhotoType])}
+                  >
+                    {key}
+                  </a>
+                ))}
+            </div>
+          )}
         </div>
       );
     }
@@ -105,50 +145,8 @@ const Menu: React.FC<MenuProps> = ({ onQuoteTypeChange, onMenuClick, onPhotoType
       <div className="menu-container">
         <div className="menu-left">
           {renderMenuItem("Home", "Home", <FaHome />, "/")}
-          <div
-            className={getClassForMenuItem("Quotes")}
-            onMouseEnter={() => setIsDropdownOpenQuote(true)}
-            onMouseLeave={() => setIsDropdownOpenQuote(false)}
-          >
-            <Link to="/Quotes" onClick={() => handleMenuClick("Quotes")}>Quotes</Link>
-            {isDropdownOpenQuote && (
-              <div className="dropdown-menu">
-                {Object.keys(QuoteType)
-                  .filter((key) => isNaN(Number(key)))
-                  .map((key) => (
-                    <a
-                      key={key}
-                      className={getClassForDropdownItem(key, "quote-type")}
-                      onClick={() => handleDropdownClickQuote(QuoteType[key as keyof typeof QuoteType])}
-                    >
-                      {key}
-                    </a>
-                  ))}
-              </div>
-            )}
-          </div>
-          <div
-            className={getClassForMenuItem("Photos")}
-            onMouseEnter={() => setIsDropdownOpenPhoto(true)}
-            onMouseLeave={() => setIsDropdownOpenPhoto(false)}
-          >
-            <Link to="/photos" onClick={() => handleMenuClick("Photos")}>Photos</Link>
-            {isDropdownOpenPhoto && (
-              <div className="dropdown-menu">
-                {Object.keys(PhotoType)
-                  .filter((key) => isNaN(Number(key)))
-                  .map((key) => (
-                    <a
-                      key={key}
-                      className={getClassForDropdownItem(key, "photo-type")}
-                      onClick={() => handleDropdownClickPhoto(PhotoType[key as keyof typeof PhotoType])}
-                    >
-                      {key}
-                    </a>
-                  ))}
-              </div>
-            )}
-          </div>
+          {renderMenuItem("Quotes", "Quotes", <FaQuoteRight />, "/Quotes", true)}
+          {renderMenuItem("Photos", "Photos", <FaPhotoVideo />, "/photos", true)}
           {renderMenuItem("Diary", "Diary", <FaBook />, "/diary")}
         </div>
         <div className="menu-right">
@@ -170,3 +168,4 @@ const Menu: React.FC<MenuProps> = ({ onQuoteTypeChange, onMenuClick, onPhotoType
 };
 
 export default Menu;
+
