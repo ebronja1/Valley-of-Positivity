@@ -67,17 +67,12 @@ const LoginPage = (props: Props) => {
                   <p className="error-message">{errors.password.message}</p>
                 )}
               </div>
-              <div className="form-footer">
-                <a href="#" className="forgot-password">
-                  Forgot password?
-                </a>
-              </div>
               <button type="submit" className="submit-button">
                 Sign in
               </button>
               <p className="signup-link">
                 Don’t have an account yet?{" "}
-                <a href="#" className="sign-up">
+                <a href="register" className="sign-up">
                   Sign up
                 </a>
               </p>
