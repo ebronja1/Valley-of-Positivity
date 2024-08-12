@@ -53,7 +53,10 @@ namespace api.Repositories
             {
                 actionDatas = actionDatas.Where(a => a.Action == queryObject.Action);
             };
-
+            if (!string.IsNullOrWhiteSpace(queryObject.AppUserId))
+            {
+                actionDatas = actionDatas.Where(a => a.AppUserId == queryObject.AppUserId);
+            };
             if (queryObject.IsDecsending == true)
             {
                 actionDatas = actionDatas.OrderByDescending(ad => ad.Timestamp);

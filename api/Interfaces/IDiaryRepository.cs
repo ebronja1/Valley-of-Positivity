@@ -16,5 +16,6 @@ namespace api.Interfaces
         Task<Diary> CreateAsync(Diary DiaryModel);
         Task<Diary?> UpdateAsync(int id, DiaryUpdateDto diaryUpdateDto);
         Task<Diary?> DeleteAsync(int id);
+        Task<Diary?> GetByUserIdAsync(string userId);
     }
 }

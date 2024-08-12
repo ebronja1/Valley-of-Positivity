@@ -8,6 +8,8 @@ using api.Mappers;
 using api.Models;
 using api.QueryObjects;
 using api.Dtos.DiaryNote;
+using Microsoft.AspNetCore.Identity;
+using api.Extensions;
 
 namespace api.Controllers
 {
@@ -16,10 +18,15 @@ namespace api.Controllers
     public class DiaryNoteController : ControllerBase
     {
         private readonly IDiaryNoteRepository _diaryNoteRepository;
+        private readonly IDiaryRepository _diaryRepo;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DiaryNoteController(IDiaryNoteRepository diaryNoteRepository)
+        public DiaryNoteController(IDiaryNoteRepository diaryNoteRepository, IDiaryRepository diaryRepo,  UserManager<AppUser> userManager)
+
         {
             _diaryNoteRepository = diaryNoteRepository;
+            _diaryRepo = diaryRepo;
+            _userManager = userManager;
         }
 
         [HttpGet("{id:int}")]

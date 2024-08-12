@@ -84,16 +84,13 @@ const RegisterPage = (props: Props) => {
                 )}
               </div>
               <div className="form-footer">
-                <a href="#" className="forgot-password">
-                  Forgot password?
-                </a>
               </div>
               <button type="submit" className="submit-button">
                 Sign up
               </button>
               <p className="login-link">
                 Already have an account?{" "}
-                <a href="#" className="sign-in">
+                <a href="login" className="sign-in">
                   Sign in
                 </a>
               </p>

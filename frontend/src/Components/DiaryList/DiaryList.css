@@ -1,0 +1,38 @@
+/* DiaryList.css */
+.diary-list {
+  background-color: #fdf6f6;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.diary-list h2 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.diary-entry {
+  border-bottom: 1px solid #c6bdbd;
+  padding: 15px 0;
+}
+
+.diary-entry:last-child {
+  border-bottom: none;
+}
+
+.diary-entry p {
+  margin: 0;
+  color: #555;
+}
+
+.diary-entry p:first-child {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.diary-entry p:last-child {
+  font-size: 0.9em;
+  color: #888;
+}
+  
