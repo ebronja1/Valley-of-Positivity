@@ -1,55 +1,5 @@
-Valley Of Positivity
 
 
-Valley Of Positivity is a web application designed to spread positivity and inspire users with daily motivational quotes, photos and other features to help them have pleasant mood. Users can sign up, log in, and browse through a collection of uplifting quotes. They can also create their own diary entries to reflect on their daily experiences and thoughts.
+As part of the diploma thesis, the web application Valley of Positivity was developed. This application is designed to support users in creating a good mood and a positive outlook on life. The application tracks user behavior and, based on that, offers each user a unique user interface tailored to their habits while using the app. This approach ensures simplicity and focus in the application's usage, significantly contributing to the reduction of the "dopamine bomb" effect to which users are exposed through popular applications (primarily social networks).
 
-Features
-
-
-User authentication: Allows users to sign up, log in, and log out securely.
-
-Daily quotes: Displays a new motivational quote each day to inspire users.
-
-Diary entries: Enables users to create and manage diary entries to reflect on their daily experiences.
-
-User-friendly interface: Provides an intuitive and easy-to-use interface for seamless navigation.
-
-Technologies Used
-
-
-Frontend: HTML, CSS, JavaScript
-Backend: ASP.NET Core, Entity Framework Core
-Database: MySQL
-Authentication: JWT (JSON Web Tokens)
-Deployment: Docker, Azure
-Getting Started
-To get started with Valley Of Positivity, follow these steps:
-
-Clone the repository:
-
-bash
-Kopiraj kod
-git clone https://github.com/ebronja1/valley-of-positivity.git
-Set up the database:
-
-Install MySQL and create a new database for the application.
-Update the connection string in the appsettings.json file with your MySQL database credentials.
-Build and run the application:
-
-Open the solution in Visual Studio or your preferred IDE.
-Build the solution and run the application.
-Access the application:
-
-Open your web browser and navigate to http://localhost:5000 to access the Valley Of Positivity application.
-Contributing
-Contributions are welcome! If you'd like to contribute to Valley Of Positivity, please follow these guidelines:
-
-Fork the repository.
-Create a new branch (git checkout -b feature-branch).
-Make your changes and commit them (git commit -am 'Add new feature').
-Push your changes to the branch (git push origin feature-branch).
-Create a new pull request.
-
-Acknowledgements
-
-This project was inspired by the power of positivity and the desire to create a supportive online community.
+The backend of the application was developed using the C# programming language and the .NET Framework. The frontend was built using the React TypeScript library. These technologies facilitate the maintenance and expansion of the developed application.
