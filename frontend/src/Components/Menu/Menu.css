@@ -14,11 +14,6 @@
   font-size: 1em;
 }
 
-.dropdown-item.most-clicked {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
 
 
 
@@ -233,4 +228,9 @@
   align-items: center;
   text-decoration: none;
   color: inherit;
+}
+
+.dropdown-item.most-clicked {
+  font-size: 1.2em;
+  font-weight: bold;
 }

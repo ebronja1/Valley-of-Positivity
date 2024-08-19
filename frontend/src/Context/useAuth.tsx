@@ -66,7 +66,7 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
           toast.success('Login Success!');
-          navigate('/search');
+          navigate('/login');
         }
       })
       .catch((e) => toast.warning('Server error occurred'));

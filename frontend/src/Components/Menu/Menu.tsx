@@ -101,6 +101,11 @@ const Menu: React.FC<MenuProps> = ({
     if (menuItem === leastClickedMenuItem) return "menu-item least-clicked";
     return "menu-item";
   };
+  const getClassForDropDownMenuItem = (menuItem: string, dropdownItem: string) => {
+    if (menuItem == "Quotes" && dropdownItem === mostClickedQuoteType) return "dropdown-item most-clicked";
+    else if (menuItem == "Photos" && dropdownItem === mostClickedPhotoType) return "dropdown-item most-clicked";
+    return "dropdown-item";
+  };
 
   const shouldShowAsIcon = (menuItem: string) => {
     if (
@@ -156,7 +161,9 @@ const Menu: React.FC<MenuProps> = ({
                 .map((key) => (
                   <a
                     key={key}
-                    className="dropdown-item"
+                    className={menuItem === "Quotes" ? getClassForDropDownMenuItem("Quotes", QuoteType[key as keyof typeof QuoteType])
+                      : getClassForDropDownMenuItem("Photos", PhotoType[key as keyof typeof PhotoType])
+                    }
                     onClick={() =>
                       menuItem === "Quotes"
                         ? handleDropdownClickQuote(
