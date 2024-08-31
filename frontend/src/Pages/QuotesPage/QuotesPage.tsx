@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import QuoteList from "../../Components/QuoteList/QuoteList";
+import { useAuth } from "../../Context/useAuth";
 
 const QuotePage: React.FC = () => {
+  const { recordAction } = useAuth();
   useEffect(() => {
     const startTime = Date.now();
     return () => {

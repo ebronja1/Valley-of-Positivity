@@ -19,7 +19,7 @@ type UserContextType = {
   logout: () => void; // Modify this
   isLoggedIn: () => boolean;
   actionData: ActionData[]; // Add this to the context type
-  recordAction: (action: string, elementClass: string) => void; // Add function to record actions
+  recordAction: (action: string, elementClass: string, quantity?: number) => void; // Add function to record actions
 };
 
 type Props = { children: React.ReactNode };
@@ -104,11 +104,11 @@ export const UserProvider = ({ children }: Props) => {
     return !!user;
   };
 
-  const recordAction = (action: string, elementClass: string) => {
+  const recordAction = (action: string, elementClass: string, quantity?: number) => {
     const actions = JSON.parse(localStorage.getItem('actions') || '[]') as ActionData[];
     const existingAction = actions.find(a => a.action === action && a.elementClass === elementClass);
     if (existingAction) {
-      existingAction.quantity += 1;
+      quantity? existingAction.quantity = quantity : existingAction.quantity += 1;
     } else {
       actions.push({ action, elementClass, quantity: 1 });
     }
