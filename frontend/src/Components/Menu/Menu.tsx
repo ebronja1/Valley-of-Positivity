@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "./logo.png";
 import "./Menu.css";
 import { useAuth } from "../../Context/useAuth";
 import { QuoteQueryObject, QuoteType } from "../../Models/QuoteModels";
