@@ -1,30 +1,34 @@
-// src/Components/PhotoList/PhotoList.tsx
 import React, { useEffect, useState } from "react";
 import { fetchPhotos } from "../../Services/PhotoService";
 import { PhotoModel, PhotoQueryObject } from "../../Models/PhotoModels";
 import { v4 as uuidv4 } from "uuid";
 import Photo from "../Photo/Photo";
-import "./PhotoList.css"
+import "./PhotoList.css";
 
 interface PhotoListProps {
-  photoQuery: PhotoQueryObject;
+  type?: any;  // Accept the `type` prop
 }
 
-const PhotoList: React.FC<PhotoListProps> = ({ photoQuery }) => {
+const PhotoList: React.FC<PhotoListProps> = ({ type }) => {
   const [photos, setPhotos] = useState<PhotoModel[]>([]);
 
   useEffect(() => {
     const getPhotos = async () => {
       try {
-        const photosData = await fetchPhotos(photoQuery);
+        const query: PhotoQueryObject = {};
+        if (type) {
+          query.type = type;  // Set the type in the query if it is passed
+        }
+
+        const photosData = await fetchPhotos(query);
         setPhotos(photosData);
       } catch (error) {
-        console.error("Error fetching Photos", error);
+        console.error("Error fetching photos", error);
       }
     };
 
     getPhotos();
-  }, [photoQuery]);
+  }, [type]);  // Add `type` to the dependency array
 
   return (
     <div className="photo-list">

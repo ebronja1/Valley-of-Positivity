@@ -1,22 +1,19 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import PhotoList from '../../Components/PhotoList/PhotoList';
-import { PhotoTypeString } from '../../Models/PhotoModels';
-import "./PhotosPage.css"
+import React from "react";
+import { useLocation } from "react-router-dom";
+import PhotoList from "../../Components/PhotoList/PhotoList";
 
 const PhotoPage: React.FC = () => {
-  const { type } = useParams<{ type?: PhotoTypeString }>();
-
-  const photoQuery = {
-    type: type ? (type as PhotoTypeString) : undefined
-  };
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get("type");
 
   return (
-    <div className='photo-page'>
+    <div>
       <h1>Photos</h1>
-      <PhotoList photoQuery={photoQuery} />
+      <PhotoList type={type} /> {/* Pass the selected type to PhotoList */}
     </div>
   );
 };
 
 export default PhotoPage;
+

@@ -1,4 +1,3 @@
-// src/Components/QuoteList/QuoteList.tsx
 import React, { useEffect, useState } from "react";
 import { fetchQuotes } from "../../Services/QuoteService";
 import { QuoteModel, QuoteQueryObject } from "../../Models/QuoteModels";
@@ -7,16 +6,21 @@ import Quote from "../Quote/Quote";
 import "./QuoteList.css";
 
 interface QuoteListProps {
-  quoteQuery: QuoteQueryObject;
+  type?: any;  // Accept the `type` prop
 }
 
-const QuoteList: React.FC<QuoteListProps> = ({ quoteQuery }) => {
+const QuoteList: React.FC<QuoteListProps> = ({ type }) => {
   const [quotes, setQuotes] = useState<QuoteModel[]>([]);
 
   useEffect(() => {
     const getQuotes = async () => {
       try {
-        const quotesData = await fetchQuotes(quoteQuery);
+        const query: QuoteQueryObject = {};
+        if (type) {
+          query.type = type;  // Set the type in the query if it is passed
+        }
+        
+        const quotesData = await fetchQuotes(query);
         setQuotes(quotesData);
       } catch (error) {
         console.error("Error fetching quotes", error);
@@ -24,7 +28,7 @@ const QuoteList: React.FC<QuoteListProps> = ({ quoteQuery }) => {
     };
 
     getQuotes();
-  }, [quoteQuery]);
+  }, [type]);  // Add `type` to the dependency array
 
   return (
     <div className="quote-list">
@@ -40,10 +44,3 @@ const QuoteList: React.FC<QuoteListProps> = ({ quoteQuery }) => {
 };
 
 export default QuoteList;
-
-
-
-
-
-
-

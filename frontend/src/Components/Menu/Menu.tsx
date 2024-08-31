@@ -1,40 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import "./Menu.css";
 import { useAuth } from "../../Context/useAuth";
-import { QuoteQueryObject, QuoteType } from "../../Models/QuoteModels";
-import { PhotoQueryObject, PhotoType } from "../../Models/PhotoModels";
+import { QuoteType } from "../../Models/QuoteModels";
+import { PhotoType } from "../../Models/PhotoModels";
 
 // Import icons
 import { FaHome, FaQuoteRight, FaPhotoVideo, FaBook } from "react-icons/fa";
 
-interface MenuProps {
-  onQuoteTypeChange: (query: QuoteQueryObject) => void;
-  onMenuClick: (menuItem: string) => void;
-  onPhotoTypeChange: (query: PhotoQueryObject) => void;
-}
-
-const Menu: React.FC<MenuProps> = ({
-  onQuoteTypeChange,
-  onMenuClick,
-  onPhotoTypeChange,
-}) => {
+const Menu: React.FC = () => {
   const { isLoggedIn, user, logout, recordAction, actionData } = useAuth();
+  const navigate = useNavigate(); // Use useNavigate hook
   const [isDropdownOpenQuote, setIsDropdownOpenQuote] = useState(false);
   const [isDropdownOpenPhoto, setIsDropdownOpenPhoto] = useState(false);
 
-  const [mostClickedMenuItem, setMostClickedMenuItem] = useState<string | null>(
-    null
-  );
-  const [leastClickedMenuItem, setLeastClickedMenuItem] = useState<string | null>(
-    null
-  );
-  const [mostClickedQuoteType, setMostClickedQuoteType] = useState<string | null>(
-    null
-  );
-  const [mostClickedPhotoType, setMostClickedPhotoType] = useState<string | null>(
-    null
-  );
+  // State for tracking actions
+  const [mostClickedMenuItem, setMostClickedMenuItem] = useState<string | null>(null);
+  const [leastClickedMenuItem, setLeastClickedMenuItem] = useState<string | null>(null);
+  const [mostClickedQuoteType, setMostClickedQuoteType] = useState<string | null>(null);
+  const [mostClickedPhotoType, setMostClickedPhotoType] = useState<string | null>(null);
   const [clickCounts, setClickCounts] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
@@ -44,23 +28,19 @@ const Menu: React.FC<MenuProps> = ({
       const photoClicks = actionData.filter((a) => a.elementClass === "photo-type");
 
       const mostClickedMenu = menuClicks.reduce(
-        (prev, current) =>
-          prev.quantity > current.quantity ? prev : current,
+        (prev, current) => (prev.quantity > current.quantity ? prev : current),
         menuClicks[0]
       );
       const leastClickedMenu = menuClicks.reduce(
-        (prev, current) =>
-          prev.quantity < current.quantity ? prev : current,
+        (prev, current) => (prev.quantity < current.quantity ? prev : current),
         menuClicks[0]
       );
       const mostClickedQuote = quoteClicks.reduce(
-        (prev, current) =>
-          prev.quantity > current.quantity ? prev : current,
+        (prev, current) => (prev.quantity > current.quantity ? prev : current),
         quoteClicks[0]
       );
       const mostClickedPhoto = photoClicks.reduce(
-        (prev, current) =>
-          prev.quantity > current.quantity ? prev : current,
+        (prev, current) => (prev.quantity > current.quantity ? prev : current),
         photoClicks[0]
       );
 
@@ -80,18 +60,24 @@ const Menu: React.FC<MenuProps> = ({
 
   const handleMenuClick = (menuItem: string) => {
     recordAction(menuItem, "menu-item");
-    onMenuClick(menuItem);
+    if (menuItem === "Quotes") {
+      navigate("/quotes");
+    } else if (menuItem === "Photos") {
+      navigate("/photos");
+    } else {
+      navigate("/");
+    }
   };
 
   const handleDropdownClickQuote = (type: QuoteType) => {
     recordAction(type, "quote-type");
-    onQuoteTypeChange({ type });
+    navigate(`/quotes?type=${type}`);
     setIsDropdownOpenQuote(false);
   };
 
   const handleDropdownClickPhoto = (type: PhotoType) => {
     recordAction(type, "photo-type");
-    onPhotoTypeChange({ type });
+    navigate(`/photos?type=${type}`);
     setIsDropdownOpenPhoto(false);
   };
 
@@ -100,20 +86,16 @@ const Menu: React.FC<MenuProps> = ({
     if (menuItem === leastClickedMenuItem) return "menu-item least-clicked";
     return "menu-item";
   };
+
   const getClassForDropDownMenuItem = (menuItem: string, dropdownItem: string) => {
-    if (menuItem == "Quotes" && dropdownItem === mostClickedQuoteType) return "dropdown-item most-clicked";
-    else if (menuItem == "Photos" && dropdownItem === mostClickedPhotoType) return "dropdown-item most-clicked";
+    if (menuItem === "Quotes" && dropdownItem === mostClickedQuoteType) return "dropdown-item most-clicked";
+    if (menuItem === "Photos" && dropdownItem === mostClickedPhotoType) return "dropdown-item most-clicked";
     return "dropdown-item";
   };
 
   const shouldShowAsIcon = (menuItem: string) => {
-    if (
-      !mostClickedMenuItem ||
-      !clickCounts[mostClickedMenuItem] ||
-      !clickCounts[menuItem]
-    )
-      return false;
-    return (clickCounts[menuItem] + 5) < clickCounts[mostClickedMenuItem];
+    if (!mostClickedMenuItem || !clickCounts[mostClickedMenuItem] || !clickCounts[menuItem]) return false;
+    return clickCounts[menuItem] + 5 < clickCounts[mostClickedMenuItem];
   };
 
   const renderMenuItem = (
@@ -152,8 +134,7 @@ const Menu: React.FC<MenuProps> = ({
           }
         >
           {itemContent}
-          {(menuItem === "Quotes" && isDropdownOpenQuote) ||
-          (menuItem === "Photos" && isDropdownOpenPhoto) ? (
+          {(menuItem === "Quotes" && isDropdownOpenQuote) || (menuItem === "Photos" && isDropdownOpenPhoto) ? (
             <div className="dropdown-menu">
               {(menuItem === "Quotes" ? Object.keys(QuoteType) : Object.keys(PhotoType))
                 .filter((key) => isNaN(Number(key)))
@@ -165,12 +146,8 @@ const Menu: React.FC<MenuProps> = ({
                     }
                     onClick={() =>
                       menuItem === "Quotes"
-                        ? handleDropdownClickQuote(
-                            QuoteType[key as keyof typeof QuoteType]
-                          )
-                        : handleDropdownClickPhoto(
-                            PhotoType[key as keyof typeof PhotoType]
-                          )
+                        ? handleDropdownClickQuote(QuoteType[key as keyof typeof QuoteType]) 
+                        : handleDropdownClickPhoto(PhotoType[key as keyof typeof PhotoType])
                     }
                   >
                     {key}
@@ -190,7 +167,7 @@ const Menu: React.FC<MenuProps> = ({
       <div className="menu-container">
         <div className="menu-left">
           {renderMenuItem("Home", "Home", <FaHome />, "/")}
-          {renderMenuItem("Quotes", "Quotes", <FaQuoteRight />, "/Quotes", true)}
+          {renderMenuItem("Quotes", "Quotes", <FaQuoteRight />, "/quotes", true)}
           {renderMenuItem("Photos", "Photos", <FaPhotoVideo />, "/photos", true)}
           {renderMenuItem("Diary", "Diary", <FaBook />, "/diary")}
         </div>
