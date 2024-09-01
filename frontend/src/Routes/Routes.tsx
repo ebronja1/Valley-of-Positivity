@@ -8,6 +8,7 @@ import PhotosPage from '../Pages/PhotosPage/PhotosPage';
 import DiaryPage from '../Pages/DiaryPage/DiaryPage';
 import LoginPage from '../Pages/LoginPage/LoginPage';
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
+import VideoPage from '../Pages/VideoPage/VideoPage';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
           { path: 'quotes', element: <QuotesPage /> }, // Quotes page
           { path: 'photos', element: <PhotosPage /> }, // Photos page
           { path: 'diary', element: <DiaryPage /> }, // Diary page
+          { path: 'videos', element: <VideoPage /> }
         ],
       },
       { path: '/login', element: <LoginPage /> }, // Login route outside Layout
