@@ -15,6 +15,6 @@ namespace api.Models
         [StringLength(500)]
         public string VideoUrl { get; set; } = string.Empty;
         
-        public PhotoType Type { get; set; }
+        public VideoType Type { get; set; }
     }
 }

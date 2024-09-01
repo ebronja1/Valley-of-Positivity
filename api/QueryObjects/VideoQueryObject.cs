@@ -10,6 +10,6 @@ namespace api.QueryObjects
     {
         public string Title { get; set; } = string.Empty;
 
-        public PhotoType Type { get; set; } = 0;
+        public VideoType Type { get; set; } = 0;
     }
 }
