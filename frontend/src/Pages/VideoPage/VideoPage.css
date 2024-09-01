@@ -1,0 +1,10 @@
+/* src/Pages/VideoPage/VideoPage.css */
+h1 {
+  font-size: 24px;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.video-page {
+  padding: 16px;
+}
