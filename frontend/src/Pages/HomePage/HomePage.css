@@ -1,49 +1,58 @@
 /* src/Pages/HomePage/HomePage.css */
+
 .home-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .buttons-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .quote-me-button, .photo-me-button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .large {
-    font-size: 20px; /* Larger size for buttons */
-    padding: 15px 30px; /* Larger padding */
-  }
-  
-  .medium {
-    font-size: 16px; /* Default size for buttons */
-    padding: 10px 20px; /* Default padding */
-  }
-  
-  .content-container {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .random-quote {
-    font-size: 18px; /* Adjust quote font size */
-    margin: 10px 0;
-  }
-  
-  .random-photo {
-    max-width: 400px; /* Set a maximum width to prevent oversized images */
-    height: auto;
-    border-radius: 8px; /* Optional: add some border radius for better appearance */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9; /* Light background color */
+  min-height: 100vh; /* Full viewport height */
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Space between buttons */
+  margin-bottom: 20px;
+}
+
+.buttons-container button {
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #e67f30; /* Modern orange */
+  color: #fff; /* White text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.buttons-container .large {
+  font-size: 18px;
+  padding: 15px 30px;
+}
+
+.buttons-container .medium {
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+.buttons-container .small {
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.buttons-container button:hover {
+  background: #cf662e; /* Darker shade of orange on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between content items */
+}
