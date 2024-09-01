@@ -40,7 +40,7 @@ namespace api.Controllers
 
             var videos = await _videoRepo.GetAllAsync(query);
 
-            var videoDtoList = videos.Select(s => s.TovideoDto()).ToList();
+            var videoDtoList = videos.Select(s => s.ToVideoDto()).ToList();
 
             if (!videoDtoList.Any())
             {
@@ -63,7 +63,7 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(video.TovideoDto());
+            return Ok(video.ToVideoDto());
         }
 
         [HttpPost]
@@ -72,9 +72,9 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var videoModel = videoCreateDto.TovideoFromCreateDto();
+            var videoModel = videoCreateDto.ToVideoFromCreateDto();
             await _videoRepo.CreateAsync(videoModel);
-            return CreatedAtAction(nameof(GetById), new { id = videoModel.Id }, videoModel.TovideoDto());
+            return CreatedAtAction(nameof(GetById), new { id = videoModel.Id }, videoModel.ToVideoDto());
         }
 
         [HttpPut("{id:int}")]
