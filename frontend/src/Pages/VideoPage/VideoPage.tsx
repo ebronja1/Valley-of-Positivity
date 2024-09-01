@@ -4,6 +4,7 @@ import VideoList from "../../Components/VideoList/VideoList";
 
 const VideoPage: React.FC = () => {
   useEffect(() => {
+    localStorage.setItem('visitedVideos', 'true');
     const startTime = Date.now();
     return () => {
       const endTime = Date.now();

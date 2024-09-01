@@ -4,8 +4,8 @@ import QuoteList from "../../Components/QuoteList/QuoteList";
 import { useAuth } from "../../Context/useAuth";
 
 const QuotePage: React.FC = () => {
-  const { recordAction } = useAuth();
   useEffect(() => {
+    localStorage.setItem('visitedQuotes', 'true');
     const startTime = Date.now();
     return () => {
       const endTime = Date.now();
