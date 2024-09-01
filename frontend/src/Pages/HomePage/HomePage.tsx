@@ -15,39 +15,49 @@ const HomePage: React.FC = () => {
   const [randomPhoto, setRandomPhoto] = useState<PhotoModel | null>(null);
   const [randomVideo, setRandomVideo] = useState<VideoModel | null>(null);
 
+  const [readQuotes, setReadQuotes] = useState(false);
+  const [watchedVideos, setWatchedVideos] = useState(false);
+  const [viewedPhotos, setViewedPhotos] = useState(false);
+  const [writtenDiary, setWrittenDiary] = useState(false);
+
   useEffect(() => {
     // Fetch stored times from localStorage
     const quoteTimeStr = localStorage.getItem('quoteTime');
     const photoTimeStr = localStorage.getItem('photoTime');
     const videoTimeStr = localStorage.getItem('videoTime');
+    const diaryWritten = localStorage.getItem('writtenDiary') === 'true';
+
     const quoteTime = quoteTimeStr ? parseInt(quoteTimeStr, 10) : 0;
     const photoTime = photoTimeStr ? parseInt(photoTimeStr, 10) : 0;
     const videoTime = videoTimeStr ? parseInt(videoTimeStr, 10) : 0;
 
-    // Determine button sizes based on time comparison
     const times = [
       { type: 'quote', time: quoteTime },
       { type: 'photo', time: photoTime },
       { type: 'video', time: videoTime }
     ];
 
-    // Sort times in descending order
     times.sort((a, b) => b.time - a.time);
 
-    // Assign sizes based on the rank of time
     const sizes: { [key: string]: string } = {
       quote: 'small',
       photo: 'small',
       video: 'small'
     };
 
-    if (times.length > 0) sizes[times[0].type] = 'large'; // Largest time
-    if (times.length > 1) sizes[times[1].type] = 'medium'; // Second largest time
-    if (times.length > 2) sizes[times[2].type] = 'small';  // Smallest time
+    if (times.length > 0) sizes[times[0].type] = 'large';
+    if (times.length > 1) sizes[times[1].type] = 'medium';
+    if (times.length > 2) sizes[times[2].type] = 'small';
 
     localStorage.setItem('quoteButtonSize', sizes.quote || 'small');
     localStorage.setItem('photoButtonSize', sizes.photo || 'small');
     localStorage.setItem('videoButtonSize', sizes.video || 'small');
+
+    // Check user activities
+    setReadQuotes(quoteTime > 0);
+    setWatchedVideos(videoTime > 0);
+    setViewedPhotos(photoTime > 0);
+    setWrittenDiary(diaryWritten);
   }, []);
 
   const handleQuoteMe = async () => {
@@ -55,8 +65,10 @@ const HomePage: React.FC = () => {
       const quotes = await fetchQuotes();
       const randomIndex = Math.floor(Math.random() * quotes.length);
       setRandomQuote(quotes[randomIndex]);
-      setRandomPhoto(null); // Clear photo and video when showing quote
+      setRandomPhoto(null);
       setRandomVideo(null);
+      localStorage.setItem('visitedQuotes', 'true');
+      setReadQuotes(true); // Mark quotes activity as done
     } catch (error) {
       console.error('Error fetching quote:', error);
     }
@@ -67,8 +79,10 @@ const HomePage: React.FC = () => {
       const photos = await fetchPhotos();
       const randomIndex = Math.floor(Math.random() * photos.length);
       setRandomPhoto(photos[randomIndex]);
-      setRandomQuote(null); // Clear quote and video when showing photo
+      setRandomQuote(null);
       setRandomVideo(null);
+      localStorage.setItem('visitedPhotos', 'true');
+      setViewedPhotos(true); // Mark photos activity as done
     } catch (error) {
       console.error('Error fetching photo:', error);
     }
@@ -79,8 +93,10 @@ const HomePage: React.FC = () => {
       const videos = await fetchVideos();
       const randomIndex = Math.floor(Math.random() * videos.length);
       setRandomVideo(videos[randomIndex]);
-      setRandomQuote(null); // Clear quote and photo when showing video
+      setRandomQuote(null);
       setRandomPhoto(null);
+      localStorage.setItem('visitedVideos', 'true');
+      setWatchedVideos(true); // Mark videos activity as done
     } catch (error) {
       console.error('Error fetching video:', error);
     }
@@ -113,10 +129,31 @@ const HomePage: React.FC = () => {
           VideoMe
         </button>
       </div>
+
       <div className="content-container">
         {randomQuote && <Quote quote={randomQuote} />}
         {randomPhoto && <Photo photo={randomPhoto} />}
         {randomVideo && <Video video={randomVideo} />}
+      </div>
+
+      <div className="activity-tracker">
+        <h2>Your Positivity Activities</h2>
+        <div className="activity-item">
+          <input type="checkbox" checked={readQuotes} readOnly />
+          <label>I read nice quotes</label>
+        </div>
+        <div className="activity-item">
+          <input type="checkbox" checked={watchedVideos} readOnly />
+          <label>I watched positive videos</label>
+        </div>
+        <div className="activity-item">
+          <input type="checkbox" checked={viewedPhotos} readOnly />
+          <label>I viewed positive photos</label>
+        </div>
+        <div className="activity-item">
+          <input type="checkbox" checked={writtenDiary} readOnly />
+          <label>I wrote in my diary</label>
+        </div>
       </div>
     </div>
   );

@@ -134,6 +134,7 @@ export const UserProvider = ({ children }: Props) => {
       localStorage.removeItem('user');
       setUser(null);
       setToken(null);
+      localStorage.clear();
       navigate('/');
     } catch (error) {
       console.error('Error during logout:', error);

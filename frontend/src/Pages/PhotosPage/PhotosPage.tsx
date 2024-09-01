@@ -4,6 +4,7 @@ import PhotoList from "../../Components/PhotoList/PhotoList";
 
 const PhotoPage: React.FC = () => {
   useEffect(() => {
+    localStorage.setItem('visitedPhotos', 'true');
     const startTime = Date.now();
     return () => {
       const endTime = Date.now();
