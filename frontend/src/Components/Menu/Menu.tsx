@@ -75,6 +75,8 @@ const Menu: React.FC = () => {
       navigate("/photos");
     } else if (menuItem === "Videos") {
       navigate("/videos"); // New for navigating to Videos page
+    } else if (menuItem === "Diary") {
+      navigate("/diary");
     } else {
       navigate("/");
     }
