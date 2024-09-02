@@ -1,28 +1,46 @@
+/* PhotoPage.css */
+
+.landscape-color {
+  background-color: #B3CDE8; /* Light Sky Blue */
+}
+
+.nature-color {
+  background-color: #A8D5BA; /* Soft Green */
+}
+
+.travel-color {
+  background-color: #FFDAB3; /* Warm Light Orange */
+}
+
+.animals-color {
+  background-color: #FFB3A7; /* Soft Coral */
+}
+
+.inspirational-color {
+  background-color: #FFE599; /* Pale Gold */
+}
+
+.abstract-color {
+  background-color: #D4A5D4; /* Light Lavender */
+}
+
+.other-color {
+  background-color: #CFCFCF; /* Light Gray */
+}
+
+h1 {
+  font-size: 34px;
+  margin: 16px 0;
+  text-align: center;
+}
+  
 .photo-page {
-    background-color: #f9f9f9;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-  }
+  padding: 16px;
+}
   
-  .photo-page h1 {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .photo-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .no-photos {
-    font-size: 1.2em;
-    color: #999;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+.no-photos {
+  font-size: 1.2em;
+  color: #999;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -1,10 +1,37 @@
 /* src/Pages/VideoPage/VideoPage.css */
 h1 {
-  font-size: 24px;
+  font-size: 34px;
   margin: 16px 0;
   text-align: center;
 }
 
 .video-page {
   padding: 16px;
+}
+.landscape-color {
+  background-color: #B3CDE8; /* Light Sky Blue */
+}
+
+.nature-color {
+  background-color: #A8D5BA; /* Soft Green */
+}
+
+.travel-color {
+  background-color: #FFDAB3; /* Warm Light Orange */
+}
+
+.animals-color {
+  background-color: #FFB3A7; /* Soft Coral */
+}
+
+.inspirational-color {
+  background-color: #FFE599; /* Pale Gold */
+}
+
+.abstract-color {
+  background-color: #D4A5D4; /* Light Lavender */
+}
+
+.other-color {
+  background-color: #CFCFCF; /* Light Gray */
 }

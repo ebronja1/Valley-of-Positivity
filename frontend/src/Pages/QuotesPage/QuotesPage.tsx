@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import QuoteList from "../../Components/QuoteList/QuoteList";
-import { useAuth } from "../../Context/useAuth";
+import "./QuotesPage.css";
 
 const QuotePage: React.FC = () => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const QuotePage: React.FC = () => {
   const type = queryParams.get("type");
 
   return (
-    <div>
+    <div className="quotes-page">
       <h1>Quotes</h1>
       <QuoteList type={type} /> {/* Pass the selected type to QuoteList */}
     </div>
