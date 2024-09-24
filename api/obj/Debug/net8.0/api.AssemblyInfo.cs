@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5c73bfef5d09bef7fb1fc66cc43d2fe7979af14")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2ceb027ba5b87e61a3541b396b64f55b4a5b48d")]
->>>>>>> color-change-feature
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e55ac4ee0f97e693989aff2985c0aafd1e69020")]
 [assembly: System.Reflection.AssemblyProductAttribute("api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
