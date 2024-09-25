@@ -1,4 +1,4 @@
-.quote-page {
+.quotes-page {
     background-color: #333;
     padding: 20px;
     color: #fff;
@@ -9,20 +9,20 @@
     margin: 20px auto;
   }
   
-  .quote-page h1 {
+  .quotes-page h1 {
     color: #f0a500;
     margin-bottom: 20px;
     text-align: center;
     font-size: 2em;
   }
   
-  .quote-list {
+  .quotes-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
   
-  .quote-list p {
+  .quotes-list p {
     color: #bbb;
     font-size: 1.2em;
     text-align: center;

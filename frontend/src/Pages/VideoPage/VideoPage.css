@@ -1,5 +1,13 @@
-/* PhotoPage.css */
+/* src/Pages/VideoPage/VideoPage.css */
+h1 {
+  font-size: 34px;
+  margin: 16px 0;
+  text-align: center;
+}
 
+.video-page {
+  padding: 16px;
+}
 .landscape-color {
   background-color: #B3CDE8; /* Light Sky Blue */
 }
@@ -26,21 +34,4 @@
 
 .other-color {
   background-color: #CFCFCF; /* Light Gray */
-}
-
-h1 {
-  font-size: 34px;
-  margin: 16px 0;
-  text-align: center;
-}
-  
-.photo-page {
-  padding: 16px;
-}
-  
-.no-photos {
-  font-size: 1.2em;
-  color: #999;
-  text-align: center;
-  margin-top: 20px;
 }

@@ -22,6 +22,7 @@ namespace api.Data
         public DbSet<Diary> Diaries { get; set; }
         public DbSet<DiaryNote> DiaryNotes { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Video> Videos { get; set; }
         public DbSet<Quote> Quotes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../Context/useAuth";
 import { useForm } from "react-hook-form";
 import "./LoginPage.css";
-import Menu from "../../Components/Menu/Menu";
 
 type Props = {};
 

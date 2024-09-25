@@ -17,6 +17,7 @@ const DiaryPage: React.FC = () => {
   const [diaryTitle, setDiaryTitle] = useState<string>("");
 
   useEffect(() => {
+    localStorage.setItem('writtenDiary', 'true');
     const loadDiary = async () => {
       try {
         const userDiary = await fetchUserDiary();

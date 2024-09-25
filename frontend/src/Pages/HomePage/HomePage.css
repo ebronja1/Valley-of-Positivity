@@ -1,0 +1,122 @@
+/* Existing styles */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: #ebe4e469; /* Light background color */
+  min-height: 100vh; /* Full viewport height */
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Space between buttons */
+  margin-bottom: 20px;
+}
+
+.buttons-container button {
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #e67f30; /* Modern orange */
+  color: #fff; /* White text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.buttons-container .large {
+  font-size: 18px;
+  padding: 15px 30px;
+}
+
+.buttons-container .medium {
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+.buttons-container .small {
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+.buttons-container button:hover {
+  background: #cf662e; /* Darker shade of orange on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between content items */
+}
+
+/* New styles for activity tracking */
+.activity-tracker {
+  margin-top: 40px;
+  padding: 20px;
+  background: #fff; /* White background for the tracker */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the container */
+  max-width: 400px;
+  width: 100%;
+}
+
+.activity-tracker h2 {
+  color: #e67f30; /* Orange title color to match buttons */
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.activity-item input[type="checkbox"] {
+  appearance: none;
+  background-color: #f1f1f1; /* Light gray background */
+  margin-right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 2px solid #e67f30; /* Orange border for checkbox */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.activity-item input[type="checkbox"]:checked {
+  background-color: #e67f30; /* Orange background when checked */
+  border-color: #cf662e; /* Darker orange border when checked */
+}
+
+.activity-item input[type="checkbox"]:checked::before {
+  content: '✔';
+  position: absolute;
+  left: 4px;
+  top: -1px;
+  font-size: 18px;
+  color: white;
+}
+
+.activity-item label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333; /* Dark gray text color */
+}
+
+.activity-item input[type="checkbox"]:hover {
+  background-color: #e67f30; /* Same color as the button on hover */
+  border-color: #cf662e; /* Darker orange on hover */
+}
+
