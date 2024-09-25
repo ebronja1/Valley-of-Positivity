@@ -66,6 +66,7 @@ namespace api.Controllers
             return Ok(quote.ToQuoteDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] QuoteCreateDto quoteCreateDto)
         {
@@ -77,7 +78,7 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = quoteModel.Id }, quoteModel.ToQuoteDto());
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] QuoteUpdateDto quoteUpdateDto)
         {
@@ -96,7 +97,7 @@ namespace api.Controllers
             return Ok(updatedQuote.ToQuoteDto());
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
