@@ -115,7 +115,7 @@ const Menu: React.FC = () => {
 
   const shouldShowAsIcon = (menuItem: string) => {
     if (!mostClickedMenuItem || !clickCounts[mostClickedMenuItem] || !clickCounts[menuItem]) return false;
-    return clickCounts[menuItem] + 5 < clickCounts[mostClickedMenuItem];
+    return clickCounts[menuItem] + 50 < clickCounts[mostClickedMenuItem];
   };
 
   const renderMenuItem = (
