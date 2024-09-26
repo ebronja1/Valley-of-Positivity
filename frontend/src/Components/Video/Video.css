@@ -1,70 +1,64 @@
 .video {
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 8px;
-  cursor: pointer; /* Add cursor to indicate it is clickable */
+  background-color: #fff; /* White background for the video container */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Ensure content stays within the container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease; /* Smooth transition for hover effects */
+  max-width: 100%; /* Ensure it doesn't overflow its container */
+  cursor: pointer; /* Change cursor to pointer to indicate clickability */
+  margin: 16px; /* Space around each video */
+}
+
+.video:hover {
+  transform: scale(1.05); /* Slightly enlarge video on hover for interaction feedback */
 }
 
 .video h2 {
-  font-size: 1.5em;
-  margin: 0 0 8px;
-  color: #333;
+  font-size: 1.5em; /* Increased font size for the title */
+  margin: 10px; /* Add margin around the title */
+  text-align: center; /* Center the title text */
+  color: #333; /* Darker text for visibility */
 }
 
-.video-admin-options {
-  display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  margin-top: 10px;
+.video iframe {
+  width: 100%; /* Full width for the iframe */
+  height: 315px; /* Fixed height for the iframe */
+  border: none; /* Remove default iframe border */
 }
 
-.video-admin-options button {
-  background-color: #f0a500;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.video-admin-options button:hover {
-  background-color: #e08c00;
-}
-
-/* Modal styling */
+/* Modal styling for video display */
 .video-modal {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1000;
+  justify-content: center; /* Center modal content */
+  align-items: center; /* Center vertically */
+  position: fixed; /* Fixed position for modal */
+  z-index: 1000; /* Ensure it is above other elements */
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%; /* Full screen width */
+  height: 100%; /* Full screen height */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
 }
 
 .modal-content {
-  background-color: #222;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  text-align: center;
-  max-width: 800px; /* Adjust for larger video size */
-  width: 80%;
+  background-color: #222; /* Dark background for modal content */
+  padding: 20px; /* Padding around the modal content */
+  border-radius: 8px; /* Rounded corners for modal */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for modal */
+  color: #fff; /* White text for visibility */
+  text-align: center; /* Center text in modal */
+  max-width: 800px; /* Increased max width of modal for better visibility */
+  width: 90%; /* Responsive width */
 }
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: #f0a500;
-  font-size: 2em;
-  cursor: pointer;
+.modal-close {
+  position: absolute; /* Positioning for close button */
+  top: 10px; /* Position at the top */
+  right: 15px; /* Position on the right */
+  color: #f0a500; /* Close button color */
+  font-size: 2em; /* Size of the close button */
+  cursor: pointer; /* Change cursor to pointer */
 }
 
 
-  
+
