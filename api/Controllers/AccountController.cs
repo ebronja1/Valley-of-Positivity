@@ -49,7 +49,7 @@ namespace api.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Roles = roles[0], // Include roles in the response
-                Token = await _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user),
             });
         }
 
@@ -85,7 +85,7 @@ namespace api.Controllers
                                 UserName = appUser.UserName,
                                 Email = appUser.Email,
                                 Roles = roleName,
-                                Token = await _tokenService.CreateToken(appUser)
+                                Token = await _tokenService.CreateToken(appUser),
                             }
                         );
                     }
