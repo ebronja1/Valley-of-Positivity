@@ -217,10 +217,10 @@ const Menu: React.FC = () => {
             </>
           ) : (
             <>
-              <Link to="/login" onClick={() => handleMenuClick("Login")}>
+              <Link to="/login">
                 Login
               </Link>
-              <Link to="/register" onClick={() => handleMenuClick("Register")}>
+              <Link to="/register">
                 Signup
               </Link>
             </>

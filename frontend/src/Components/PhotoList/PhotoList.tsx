@@ -10,7 +10,7 @@ interface PhotoListProps {
 }
 
 const PhotoList: React.FC<PhotoListProps> = ({ type }) => {
-  const [photos, setPhotos] = useState<PhotoModel[]>([]);
+  const [photos, setPhotos] = useState<PhotoModel[] | null>([]);
 
   useEffect(() => {
     const getPhotos = async () => {
@@ -23,6 +23,7 @@ const PhotoList: React.FC<PhotoListProps> = ({ type }) => {
         const photosData = await fetchPhotos(query);
         setPhotos(photosData);
       } catch (error) {
+        setPhotos(null);
         console.error("Error fetching photos", error);
       }
     };
@@ -32,7 +33,7 @@ const PhotoList: React.FC<PhotoListProps> = ({ type }) => {
 
   return (
     <div className="photo-list">
-      {photos.length > 0 ? (
+      {photos ? (
         photos.map((photo) => (
           <Photo key={uuidv4()} photo={photo} />
         ))

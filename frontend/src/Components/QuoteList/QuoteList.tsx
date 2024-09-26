@@ -11,7 +11,7 @@ interface QuoteListProps {
 }
 
 const QuoteList: React.FC<QuoteListProps> = ({ type }) => {
-  const [quotes, setQuotes] = useState<QuoteModel[]>([]);
+  const [quotes, setQuotes] = useState<QuoteModel[] | null>([]);
 
   useEffect(() => {
     const getQuotes = async () => {
@@ -24,6 +24,7 @@ const QuoteList: React.FC<QuoteListProps> = ({ type }) => {
         const quotesData = await fetchQuotes(query);
         setQuotes(quotesData);
       } catch (error) {
+        setQuotes(null);
         console.error("Error fetching quotes", error);
       }
     };
@@ -34,7 +35,7 @@ const QuoteList: React.FC<QuoteListProps> = ({ type }) => {
 
   return (
     <div className="quote-list">
-      {quotes.length > 0 ? (
+      {quotes ? (
         quotes.map((quote) => (
           <Quote key={uuidv4()} quote={quote} />
         ))
