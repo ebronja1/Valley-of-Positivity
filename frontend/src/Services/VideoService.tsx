@@ -25,3 +25,14 @@ export const submitVideo = async (video: VideoModel): Promise<VideoModel> => {
     throw error;
   }
 };
+
+export const deleteVideo = async (videoId: number): Promise<VideoModel> => {
+  try {
+    const response = await axios.delete(`http://localhost:5240/api/video/${videoId}`, {
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting video:', error);
+    throw error;
+  }
+};

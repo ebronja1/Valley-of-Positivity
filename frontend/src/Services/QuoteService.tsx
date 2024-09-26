@@ -14,13 +14,14 @@ export const fetchQuotes = async (queryObject?: QuoteQueryObject): Promise<Quote
     throw error;
   }
 };
+
 export const deleteQuote = async (quoteId: number): Promise<QuoteModel> => {
   try {
     const response = await axios.delete(`http://localhost:5240/api/quote/${quoteId}`, {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching quotes:', error);
+    console.error('Error deleting quote:', error);
     throw error;
   }
 };

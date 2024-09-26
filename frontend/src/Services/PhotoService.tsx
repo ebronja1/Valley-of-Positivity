@@ -25,3 +25,14 @@ export const submitPhoto = async (photo: PhotoModel): Promise<PhotoModel> => {
     throw error;
   }
 };
+
+export const deletePhoto = async (photoId: number): Promise<PhotoModel> => {
+  try {
+    const response = await axios.delete(`http://localhost:5240/api/photo/${photoId}`, {
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+    throw error;
+  }
+};
