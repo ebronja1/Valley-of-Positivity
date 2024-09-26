@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Account;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +17,7 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signinManager;
+
         public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
@@ -28,26 +28,31 @@ namespace api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
+            // Check if the request model is valid
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Check if the user exists
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
+            if (user == null) return Unauthorized("Invalid credentials.");
 
-            if (user == null) return Unauthorized("Invalid username!");
-
+            // Verify the password
             var result = await _signinManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            if (!result.Succeeded) return Unauthorized("Invalid credentials.");
 
-            if (!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
+            // Retrieve user roles
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return Ok(
-                new NewUserDto
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
-                }
-            );
+            // Return the user details and JWT
+            return Ok(new NewUserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = roles[0], // Include roles in the response
+                Token = await _tokenService.CreateToken(user),
+            });
         }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -67,7 +72,11 @@ namespace api.Controllers
 
                 if (createdUser.Succeeded)
                 {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    // Check if the user should be an Admin or a regular user
+                    var roleName = registerDto.IsAdmin ? "Admin" : "User";
+
+                    var roleResult = await _userManager.AddToRoleAsync(appUser, roleName);
+
                     if (roleResult.Succeeded)
                     {
                         return Ok(
@@ -75,7 +84,8 @@ namespace api.Controllers
                             {
                                 UserName = appUser.UserName,
                                 Email = appUser.Email,
-                                Token = _tokenService.CreateToken(appUser)
+                                Roles = roleName,
+                                Token = await _tokenService.CreateToken(appUser),
                             }
                         );
                     }

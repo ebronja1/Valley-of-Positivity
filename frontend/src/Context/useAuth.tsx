@@ -8,6 +8,7 @@ import axios from 'axios';
 import { fetchUserActions, saveActions } from '../Services/ActionDataService'; // Import the function
 import { ActionData } from '../Models/ActionDataModels';
 import React from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const API_BASE_URL = 'http://localhost:5240/api';
 
@@ -18,6 +19,7 @@ type UserContextType = {
   loginUser: (username: string, password: string) => void;
   logout: () => void; // Modify this
   isLoggedIn: () => boolean;
+  isAdmin: () => boolean;
   actionData: ActionData[]; // Add this to the context type
   recordAction: (action: string, elementClass: string, quantity?: number) => void; // Add function to record actions
 };
@@ -30,6 +32,7 @@ export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [roles, setRoles] = useState<string[]>([]); 
   const [actionData, setActionData] = useState<ActionData[]>([]); // Add state for action data
   const [isReady, setIsReady] = useState(false);
 
@@ -40,6 +43,10 @@ export const UserProvider = ({ children }: Props) => {
       setUser(JSON.parse(user));
       setToken(token);
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
+      // Decode the token to get roles if they are included in the JWT payload
+      const decodedToken = jwtDecode<{ role: string[] }>(token);
+      setRoles(decodedToken?.role || []); // Assumes roles are in the "role" claim
     }
     setIsReady(true);
 
@@ -65,7 +72,7 @@ export const UserProvider = ({ children }: Props) => {
           localStorage.setItem('user', JSON.stringify(userObj));
           setToken(res?.data.token!);
           setUser(userObj!);
-          toast.success('Login Success!');
+          toast.success('Registered Successfully!');
           navigate('/login');
         }
       })
@@ -85,6 +92,10 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
 
+          // Decode token to get roles
+          const decodedToken = jwtDecode<{ role: string[] }>(res?.data.token);
+          setRoles(decodedToken?.role || []);
+
           // Fetch and set action data after login
           try {
             const actions = await fetchUserActions();
@@ -102,6 +113,10 @@ export const UserProvider = ({ children }: Props) => {
 
   const isLoggedIn = () => {
     return !!user;
+  };
+
+  const isAdmin = () => {
+    return roles.includes('Admin');
   };
 
   const recordAction = (action: string, elementClass: string, quantity?: number) => {
@@ -123,11 +138,6 @@ export const UserProvider = ({ children }: Props) => {
         await saveActions(action);
       }
 
-      /*// Proceed with the actual logout call
-      await axios.post(`${API_BASE_URL}/account/logout`, {}, {
-        withCredentials: true,
-      });*/
-
       // Handle successful logout
       localStorage.removeItem('actions');
       localStorage.removeItem('token');
@@ -135,7 +145,7 @@ export const UserProvider = ({ children }: Props) => {
       setUser(null);
       setToken(null);
       localStorage.clear();
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }
@@ -143,7 +153,7 @@ export const UserProvider = ({ children }: Props) => {
 
   return (
     <UserContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, registerUser, actionData, recordAction }}
+      value={{ loginUser, user, token, logout, isLoggedIn, registerUser, actionData, recordAction, isAdmin }}
     >
       {isReady ? children : null}
     </UserContext.Provider>

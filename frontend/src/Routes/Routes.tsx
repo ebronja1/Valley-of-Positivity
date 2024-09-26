@@ -9,6 +9,7 @@ import DiaryPage from '../Pages/DiaryPage/DiaryPage';
 import LoginPage from '../Pages/LoginPage/LoginPage';
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
 import VideoPage from '../Pages/VideoPage/VideoPage';
+import AdminPanelPage from '../Pages/AdminPanelPage/AdminPanelPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,8 @@ export const router = createBrowserRouter([
           { path: 'quotes', element: <QuotesPage /> }, // Quotes page
           { path: 'photos', element: <PhotosPage /> }, // Photos page
           { path: 'diary', element: <DiaryPage /> }, // Diary page
-          { path: 'videos', element: <VideoPage /> }
+          { path: 'videos', element: <VideoPage /> }, //Video page
+          { path: 'admin-panel', element: <AdminPanelPage /> } //Video page
         ],
       },
       { path: '/login', element: <LoginPage /> }, // Login route outside Layout

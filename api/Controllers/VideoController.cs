@@ -66,6 +66,7 @@ namespace api.Controllers
             return Ok(video.ToVideoDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] VideoCreateDto videoCreateDto)
         {
@@ -77,6 +78,7 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = videoModel.Id }, videoModel.ToVideoDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] VideoUpdateDto videoUpdateDto)
         {
@@ -95,7 +97,7 @@ namespace api.Controllers
             return Ok(updatedvideo);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)

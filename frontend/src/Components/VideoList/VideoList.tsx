@@ -10,7 +10,7 @@ interface VideoListProps {
 }
 
 const VideoList: React.FC<VideoListProps> = ({ type }) => {
-  const [videos, setVideos] = useState<VideoModel[]>([]);
+  const [videos, setVideos] = useState<VideoModel[] | null>([]);
 
   useEffect(() => {
     const getVideos = async () => {
@@ -23,6 +23,7 @@ const VideoList: React.FC<VideoListProps> = ({ type }) => {
         const videosData = await fetchVideos(query);
         setVideos(videosData);
       } catch (error) {
+        setVideos(null);
         console.error("Error fetching videos", error);
       }
     };
@@ -32,7 +33,7 @@ const VideoList: React.FC<VideoListProps> = ({ type }) => {
 
   return (
     <div className="video-list">
-      {videos.length > 0 ? (
+      {videos ? (
         videos.map((video) => (
           <Video key={uuidv4()} video={video} />
         ))

@@ -66,6 +66,7 @@ namespace api.Controllers
             return Ok(photo.ToPhotoDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PhotoCreateDto photoCreateDto)
         {
@@ -77,6 +78,7 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = photoModel.Id }, photoModel.ToPhotoDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PhotoUpdateDto photoUpdateDto)
         {
@@ -95,7 +97,7 @@ namespace api.Controllers
             return Ok(updatedPhoto);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)

@@ -15,5 +15,7 @@ namespace api.Dtos.Account
         public string? Email { get; set; }
         [Required]
         public string? Password { get; set; }
+
+        public bool IsAdmin { get; set; } = false;// New property to indicate admin role
     }
 }

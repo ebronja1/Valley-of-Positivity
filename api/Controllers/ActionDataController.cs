@@ -31,6 +31,7 @@ namespace api.Controllers
             _context = context;
             _userManager = userManager;
         }
+        
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] ActionDataQueryObject query)

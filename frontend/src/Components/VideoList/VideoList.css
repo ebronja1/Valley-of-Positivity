@@ -1,13 +1,12 @@
-/* src/Components/VideoList/VideoList.css */
 .video-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .video-list .video {
-    flex: 1 1 calc(33.333% - 32px); /* Adjust the width to fit your layout */
-    box-sizing: border-box;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the video items */
+  padding: 16px;
+}
+
+.video-list .video {
+  flex: 1 1 calc(50% - 32px); /* Adjust width to take more space, half the width with gaps */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  max-width: 600px; /* Set a maximum width for each video */
+}
