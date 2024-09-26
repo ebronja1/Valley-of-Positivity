@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchQuotes } from "../../Services/QuoteService";
+import { deleteQuote, fetchQuotes } from "../../Services/QuoteService";
 import { QuoteModel, QuoteQueryObject } from "../../Models/QuoteModels";
 import { v4 as uuidv4 } from "uuid";
 import Quote from "../Quote/Quote";
 import "./QuoteList.css";
+import { toast } from "react-toastify";
 
 interface QuoteListProps {
   type?: any;  // Accept the `type` prop
@@ -29,6 +30,7 @@ const QuoteList: React.FC<QuoteListProps> = ({ type }) => {
 
     getQuotes();
   }, [type]);  // Add `type` to the dependency array
+  
 
   return (
     <div className="quote-list">
