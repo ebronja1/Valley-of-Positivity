@@ -1,7 +1,8 @@
+// src/services/VideoService.ts
 import axios from 'axios';
-import { VideoQueryObject } from '../Models/VideoModels';
-import { VideoModel } from '../Models/VideoModels';
+import { VideoQueryObject, VideoModel } from '../Models/VideoModels';
 
+// Fetch videos (existing function)
 export const fetchVideos = async (queryObject?: VideoQueryObject): Promise<VideoModel[]> => {
   try {
     const response = await axios.get('http://localhost:5240/api/video', {
@@ -10,6 +11,17 @@ export const fetchVideos = async (queryObject?: VideoQueryObject): Promise<Video
     return response.data;
   } catch (error) {
     console.error('Error fetching Videos:', error);
-    throw error; // Re-throw the error to be handled by the calling code
+    throw error;
+  }
+};
+
+// Submit new video
+export const submitVideo = async (video: VideoModel): Promise<VideoModel> => {
+  try {
+    const response = await axios.post('http://localhost:5240/api/video', video);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting Video:', error);
+    throw error;
   }
 };

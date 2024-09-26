@@ -28,26 +28,31 @@ namespace api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
+            // Check if the request model is valid
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Check if the user exists
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
+            if (user == null) return Unauthorized("Invalid credentials.");
 
-            if (user == null) return Unauthorized("Invalid username!");
-
+            // Verify the password
             var result = await _signinManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            if (!result.Succeeded) return Unauthorized("Invalid credentials.");
 
-            if (!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
+            // Retrieve user roles
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return Ok(
-                new NewUserDto
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Token = await _tokenService.CreateToken(user)
-                }
-            );
+            // Return the user details and JWT
+            return Ok(new NewUserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = roles[0], // Include roles in the response
+                Token = await _tokenService.CreateToken(user)
+            });
         }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -79,6 +84,7 @@ namespace api.Controllers
                             {
                                 UserName = appUser.UserName,
                                 Email = appUser.Email,
+                                Roles = roleName,
                                 Token = await _tokenService.CreateToken(appUser)
                             }
                         );

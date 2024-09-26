@@ -1,7 +1,8 @@
+// src/services/QuoteService.ts
 import axios from 'axios';
-import { QuoteQueryObject } from '../Models/QuoteModels';
-import { QuoteModel } from '../Models/QuoteModels';
+import { QuoteQueryObject, QuoteModel } from '../Models/QuoteModels';
 
+// Fetch quotes (existing function)
 export const fetchQuotes = async (queryObject?: QuoteQueryObject): Promise<QuoteModel[]> => {
   try {
     const response = await axios.get('http://localhost:5240/api/quote', {
@@ -10,9 +11,21 @@ export const fetchQuotes = async (queryObject?: QuoteQueryObject): Promise<Quote
     return response.data;
   } catch (error) {
     console.error('Error fetching quotes:', error);
-    throw error; // Re-throw the error to be handled by the calling code
+    throw error;
   }
 };
+
+// Submit new quote
+export const submitQuote = async (quote: QuoteModel): Promise<QuoteModel> => {
+  try {
+    const response = await axios.post('http://localhost:5240/api/quote', quote);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting Quote:', error);
+    throw error;
+  }
+};
+
 
 
 

@@ -7,10 +7,10 @@ import { PhotoType } from "../../Models/PhotoModels";
 import { VideoType } from "../../Models/VideoModels"; // Assuming you have VideoType enum for different types of videos
 
 // Import icons
-import { FaHome, FaQuoteRight, FaPhotoVideo, FaBook, FaVideo } from "react-icons/fa"; // Add FaVideo for Videos icon
+import { FaHome, FaQuoteRight, FaPhotoVideo, FaBook, FaVideo, FaTools } from "react-icons/fa"; // Add FaVideo for Videos icon
 
 const Menu: React.FC = () => {
-  const { isLoggedIn, user, logout, recordAction, actionData } = useAuth();
+  const { isLoggedIn, user, logout, recordAction, actionData, isAdmin } = useAuth();
   const navigate = useNavigate(); // Use useNavigate hook
   const [isDropdownOpenQuote, setIsDropdownOpenQuote] = useState(false);
   const [isDropdownOpenPhoto, setIsDropdownOpenPhoto] = useState(false);
@@ -203,6 +203,11 @@ const Menu: React.FC = () => {
           {renderMenuItem("Photos", "Photos", <FaPhotoVideo />, "/photos", true)}
           {renderMenuItem("Videos", "Videos", <FaVideo />, "/videos", true)} {/* New Videos menu item */}
           {renderMenuItem("Diary", "Diary", <FaBook />, "/diary")}
+          {/* Conditionally show Admin Panel */}
+          {isAdmin() && (<Link to="/admin-panel">
+                AdminPanel
+              </Link>)
+          }
         </div>
         <div className="menu-right">
           {isLoggedIn() ? (
