@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:80"                    # Maps container port 80 to host port 5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"                    # Maps container port 80 to host port 3000
+    depends_on:
+      - backend
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: ValleyOfPositivity
+    volumes:
+      - db_data:/var/lib/mysql        # Persist database data
+
+volumes:
+  db_data:

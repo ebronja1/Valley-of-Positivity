@@ -1,0 +1,6 @@
+# Ignore build outputs and other unnecessary files
+bin
+obj
+.vscode
+.env
+
