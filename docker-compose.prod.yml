@@ -26,9 +26,7 @@ services:
 
   backend:
     container_name: "valley-of-positivity-backend"
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    image: ebronja1/valley-of-positivity-backend:v1.0  # Replace with your actual image name and tag
     ports:
       - "5240:8080"
     depends_on:
@@ -36,12 +34,11 @@ services:
 
   frontend:
     container_name: "valley-of-positivity-frontend"
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: ebronja1/valley-of-positivity-frontend:v1.0  # Replace with your actual image name and tag
     ports:
       - "3000:80"
 
 volumes:
   db_data:
+
 
