@@ -9,10 +9,21 @@ services:
       MYSQL_DATABASE: ValleyOfPositivity
       MYSQL_USER: root
     ports:
-      - "3307:3306"  # Change this line
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-  
+
+  phpmyadmin:
+    container_name: "valley-of-positivity-phpmyadmin"
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ""  # No password since you're allowing empty password
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
   backend:
     container_name: "valley-of-positivity-backend"
     build:
@@ -33,3 +44,4 @@ services:
 
 volumes:
   db_data:
+
