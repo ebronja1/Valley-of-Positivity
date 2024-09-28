@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   db:
+    container_name: "valley-of-positivity-baza"
     image: mysql:8.0
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
@@ -13,15 +14,17 @@ services:
       - db_data:/var/lib/mysql
   
   backend:
+    container_name: "valley-of-positivity-backend"
     build:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "5240:80"
+      - "5240:8080"
     depends_on:
       - db
 
   frontend:
+    container_name: "valley-of-positivity-frontend"
     build:
       context: ./frontend
       dockerfile: Dockerfile
