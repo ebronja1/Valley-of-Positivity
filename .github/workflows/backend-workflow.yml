@@ -23,7 +23,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build . --file Dockerfile --tag ebronja1/valley-of-positivity-backend
+      run: docker build ./api --file ./api/Dockerfile --tag ebronja1/valley-of-positivity-backend
 
     - name: Push Docker image to Docker Hub
       run: docker push ebronja1/valley-of-positivity-backend
+
