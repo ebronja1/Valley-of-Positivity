@@ -1,0 +1,11 @@
+## .NET ##
+*.obj
+*.dll
+*.exe
+*.suo
+*.user
+.vs/
+bin/
+obj/
+[Oo]ut/
+[Tt]est[Rr]esult*/
