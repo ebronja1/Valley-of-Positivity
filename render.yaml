@@ -1,8 +1,41 @@
 services:
+  # Backend service configuration
   - type: web
-    name: valley-of-positivity-db
+    name: my-dotnet-backend
+    env: docker  # Specify that this service uses Docker
+    repo: https://github.com/ebronja1/Valley-of-Positivity/api
+    branch: main
+    dockerfilePath: ./Dockerfile # Path to your Dockerfile for .NET backend
+    buildCommand: ""  # Optional, can be removed if not needed
+    startCommand: "dotnet ValleyOfPositivity.dll"
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DATABASE_URL
+        value: mysql://root:@my-mysql-database:3306/ValleyOfPositivity
+    healthCheckPath: "/health"
+    autoDeploy: true
+    plan: free
+
+  # Frontend service configuration
+  - type: web
+    name: my-react-frontend
+    env: static  # Specify that this service is a static site
+    repo: https://github.com/ebronja1/Valley-of-Positivity/frontend
+    branch: main
+    buildCommand: "npm install && npm run build"
+    publishPath: build  # Correct the publish path to match your build output
+    envVars:
+      - key: REACT_APP_API_URL
+        value: "https://valley-of-positivity.onrender.com"
+    autoDeploy: true
+    plan: free
+
+  # MySQL Database configuration (self-hosted)
+  - type: web
+    name: my-mysql-database
     env: docker
-    image: mysql:8.0
+    image: mysql:8.0  # Use MySQL Docker image
     startCommand: ""
     envVars:
       - key: MYSQL_ALLOW_EMPTY_PASSWORD
@@ -13,50 +46,9 @@ services:
         value: root
     plan: free
     disk:
-      sizeGB: 5
+      sizeGB: 5  # Set disk size for data persistence
 
-  - type: web
-    name: valley-of-positivity-phpmyadmin
-    env: docker
-    image: phpmyadmin/phpmyadmin
-    startCommand: ""
-    envVars:
-      - key: PMA_HOST
-        value: valley-of-positivity-db
-      - key: MYSQL_ROOT_PASSWORD
-        value: ""
-    ports:
-      - port: 80
-    dependsOn:
-      - valley-of-positivity-db
-    plan: free
 
-  - type: web
-    name: valley-of-positivity-backend
-    env: docker
-    image: ebronja1/valley-of-positivity-backend:v1.0
-    startCommand: "dotnet YourBackendApp.dll"
-    envVars:
-      - key: DATABASE_URL
-        value: mysql://root:@valley-of-positivity-db:3306/ValleyOfPositivity
-    ports:
-      - port: 80
-    dependsOn:
-      - valley-of-positivity-db
-    healthCheckPath: "/health"
-    plan: free
-
-  - type: web
-    name: valley-of-positivity-frontend
-    env: docker
-    image: ebronja1/valley-of-positivity-frontend:v1.0
-    startCommand: "serve -s build -l 80"
-    ports:
-      - port: 80
-    envVars:
-      - key: REACT_APP_API_URL
-        value: "https://valley-of-positivity-backend.onrender.com"
-    plan: free
 
 
 
