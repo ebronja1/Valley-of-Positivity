@@ -7,7 +7,6 @@ services:
     branch: main
     dockerfilePath: ./Dockerfile # Path to your Dockerfile for .NET backend
     buildCommand: ""  # Optional, can be removed if not needed
-    startCommand: "dotnet ValleyOfPositivity.dll"
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
