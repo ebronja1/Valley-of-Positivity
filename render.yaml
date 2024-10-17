@@ -12,7 +12,7 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
       - key: DATABASE_URL
-        value: mysql://root:@my-mysql-database:3306/ValleyOfPositivity
+        value: postgres://your_db_user:your_db_password@my-postgres-database:5432/ValleyOfPositivity  # Update with your DB credentials
     healthCheckPath: "/health"
     autoDeploy: true
     plan: free
@@ -23,30 +23,22 @@ services:
     env: static  # Specify that this service is a static site
     repo: https://github.com/ebronja1/Valley-of-Positivity/frontend
     branch: main
-    buildCommand: "npm install && npm run build"
-    publishPath: build  # Correct the publish path to match your build output
+    buildCommand: "npm install && npm run build"  # Builds the frontend
     envVars:
       - key: REACT_APP_API_URL
-        value: "https://valley-of-positivity.onrender.com"
+        value: "https://my-dotnet-backend.onrender.com"  # Update if necessary
     autoDeploy: true
     plan: free
 
-  # MySQL Database configuration (self-hosted)
-  - type: web
-    name: my-mysql-database
-    env: docker
-    image: mysql:8.0  # Use MySQL Docker image
-    startCommand: ""
-    envVars:
-      - key: MYSQL_ALLOW_EMPTY_PASSWORD
-        value: "yes"
-      - key: MYSQL_DATABASE
-        value: ValleyOfPositivity
-      - key: MYSQL_USER
-        value: root
+  # PostgreSQL Database configuration
+  - type: postgres  # Using managed PostgreSQL
+    name: my-postgres-database
+    databaseName: ValleyOfPositivity
+    user: your_db_user  # Update with your desired username
+    password: your_db_password  # Update with your desired password
     plan: free
-    disk:
-      sizeGB: 5  # Set disk size for data persistence
+    region: oregon  # Update to your preferred region
+
 
 
 
