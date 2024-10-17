@@ -30,14 +30,23 @@ services:
     autoDeploy: true
     plan: free
 
-  # PostgreSQL Database configuration
-  - type: postgres  # Using managed PostgreSQL
+  # Managed PostgreSQL Database configuration
+  - type: web
     name: my-postgres-database
-    databaseName: ValleyOfPositivity
-    user: your_db_user  # Update with your desired username
-    password: your_db_password  # Update with your desired password
+    env: docker  # Indicating a Docker environment
+    image: render/postgres:latest  # Using Render's managed PostgreSQL Docker image
+    startCommand: ""
+    envVars:
+      - key: POSTGRES_DB
+        value: ValleyOfPositivity
+      - key: POSTGRES_USER
+        value: your_db_user  # Update with your desired username
+      - key: POSTGRES_PASSWORD
+        value: your_db_password  # Update with your desired password
     plan: free
-    region: oregon  # Update to your preferred region
+    disk:
+      sizeGB: 5  # Set disk size for data persistence
+
 
 
 
