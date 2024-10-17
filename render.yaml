@@ -14,7 +14,6 @@ services:
         value: "mysql://freedb_student030598:SQZafsZg9@N#k4A@sql.freedb.tech:3306/freedb_ValleyOfPositivity"
     healthCheckPath: "/health"
     autoDeploy: true
-    plan: free
 
   # Frontend service configuration
   - type: web
@@ -27,7 +26,7 @@ services:
       - key: REACT_APP_API_URL
         value: "https://my-dotnet-backend.onrender.com"  # Update if necessary
     autoDeploy: true
-    plan: free
+
 
 
 
