@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: valley-of-positivity-db
+    env: docker
+    image: mysql:8.0
+    startCommand: ""
+    envVars:
+      - key: MYSQL_ALLOW_EMPTY_PASSWORD
+        value: "yes"
+      - key: MYSQL_DATABASE
+        value: ValleyOfPositivity
+      - key: MYSQL_USER
+        value: root
+    plan: free
+    disk:
+      sizeGB: 5
+
+  - type: web
+    name: valley-of-positivity-phpmyadmin
+    env: docker
+    image: phpmyadmin/phpmyadmin
+    startCommand: ""
+    envVars:
+      - key: PMA_HOST
+        value: valley-of-positivity-db
+      - key: MYSQL_ROOT_PASSWORD
+        value: ""
+    ports:
+      - port: 80
+    dependsOn:
+      - valley-of-positivity-db
+    plan: free
+
+  - type: web
+    name: valley-of-positivity-backend
+    env: docker
+    image: ebronja1/valley-of-positivity-backend:v1.0
+    startCommand: "dotnet YourBackendApp.dll"
+    envVars:
+      - key: DATABASE_URL
+        value: mysql://root:@valley-of-positivity-db:3306/ValleyOfPositivity
+    ports:
+      - port: 80
+    dependsOn:
+      - valley-of-positivity-db
+    healthCheckPath: "/health"
+    plan: free
+
+  - type: web
+    name: valley-of-positivity-frontend
+    env: docker
+    image: ebronja1/valley-of-positivity-frontend:v1.0
+    startCommand: "serve -s build -l 80"
+    ports:
+      - port: 80
+    envVars:
+      - key: REACT_APP_API_URL
+        value: "https://valley-of-positivity-backend.onrender.com"
+    plan: free
+
+
+
+
