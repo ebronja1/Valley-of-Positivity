@@ -12,7 +12,7 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
       - key: DATABASE_URL
-        value: postgres://your_db_user:your_db_password@my-postgres-database:5432/ValleyOfPositivity  # Update with your DB credentials
+        value: "mysql://freedb_student030598:SQZafsZg9@N#k4A@sql.freedb.tech:3306/freedb_ValleyOfPositivity"
     healthCheckPath: "/health"
     autoDeploy: true
     plan: free
@@ -30,22 +30,6 @@ services:
     autoDeploy: true
     plan: free
 
-  # Managed PostgreSQL Database configuration
-  - type: web
-    name: my-postgres-database
-    env: docker  # Indicating a Docker environment
-    image: render/postgres:latest  # Using Render's managed PostgreSQL Docker image
-    startCommand: ""
-    envVars:
-      - key: POSTGRES_DB
-        value: ValleyOfPositivity
-      - key: POSTGRES_USER
-        value: your_db_user  # Update with your desired username
-      - key: POSTGRES_PASSWORD
-        value: your_db_password  # Update with your desired password
-    plan: free
-    disk:
-      sizeGB: 5  # Set disk size for data persistence
 
 
 
