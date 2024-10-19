@@ -4,6 +4,8 @@ As part of the diploma thesis, the web application Valley of Positivity was deve
 
 The backend of the application was developed using the C# programming language and the .NET Framework. The frontend was built using the React TypeScript library. These technologies facilitate the maintenance and expansion of the developed application.
 
+try the app: https://valley-of-positivity.vercel.app
+
 Video presentation:
 https://www.youtube.com/watch?v=lajaYb8wFD0
 
