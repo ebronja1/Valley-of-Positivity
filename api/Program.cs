@@ -126,7 +126,7 @@ app.UseCors(x => x
      .AllowAnyMethod()
      .AllowAnyHeader()
      .AllowCredentials()
-      .WithOrigins("https://valley-of-positivity.vercel.app")
+      .WithOrigins("https://valley-of-positivity.vercel.app/")
       .SetIsOriginAllowed(origin => true));
 
 
