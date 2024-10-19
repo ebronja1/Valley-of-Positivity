@@ -3,7 +3,8 @@
 import axios from "axios";
 import { ActionData } from "../Models/ActionDataModels";
 
-const API_BASE_URL = 'http://localhost:5240/api';
+// Get the API base URL from the environment variable, or default to localhost if not set
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5240/api';
 
 export const saveActions = async (action: ActionData): Promise<void> => {
   try {
