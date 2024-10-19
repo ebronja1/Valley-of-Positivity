@@ -1,12 +1,15 @@
+// src/Services/AuthService.ts
+
 import axios from "axios";
 import { handleError } from "../Helpers/ErrorHandler";
 import { UserProfileToken } from "../Models/User";
 
-const api = "http://localhost:5240/api/";
+// Get the API base URL from the environment variable, or default to localhost if not set
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5240/api/";
 
 export const loginAPI = async (username: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "account/login", {
+    const data = await axios.post<UserProfileToken>(API_BASE_URL + "account/login", {
       username: username,
       password: password,
     });
@@ -22,7 +25,7 @@ export const registerAPI = async (
   password: string
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "account/register", {
+    const data = await axios.post<UserProfileToken>(API_BASE_URL + "account/register", {
       email: email,
       username: username,
       password: password,

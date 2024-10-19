@@ -1,9 +1,11 @@
+// src/Services/DiaryService.ts
+
 import axios from 'axios';
 import { DiaryNote, DiaryModel, DiaryNotePost } from '../Models/DiaryModels';
 import { number } from 'yup';
 
-// API base URL
-const API_BASE_URL = 'http://localhost:5240/api';
+// Get the API base URL from the environment variable, or default to localhost if not set
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5240/api';
 
 // Fetch the user's diary
 export const fetchUserDiary = async (): Promise<DiaryModel | null> => {
@@ -56,11 +58,10 @@ export const fetchDiaryNotes = async (id: number): Promise<DiaryModel> => {
   }
 };
 
-
 // Add a diary note to a specific diary
 export const addDiaryNote = async (note: DiaryNotePost): Promise<DiaryNote> => {
   try {
-    const response = await axios.post<DiaryNote>(`http://localhost:5240/api/diarynote/${note.diaryId}`, note, {
+    const response = await axios.post<DiaryNote>(`${API_BASE_URL}/diarynote/${note.diaryId}`, note, {
       headers: {
         // add any required headers here
       },
@@ -71,3 +72,4 @@ export const addDiaryNote = async (note: DiaryNotePost): Promise<DiaryNote> => {
     throw error;
   }
 };
+
