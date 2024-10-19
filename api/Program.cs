@@ -123,12 +123,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(x => x
-     .AllowAnyMethod()
-     .AllowAnyHeader()
-     .AllowCredentials()
-      .WithOrigins("https://valley-of-positivity.vercel.app")
-      .SetIsOriginAllowed(origin => true));
-
+    .WithOrigins("https://valley-of-positivity.vercel.app") // Specify the allowed origin
+    .AllowAnyMethod() // Allow any HTTP method
+    .AllowAnyHeader() // Allow any HTTP header
+    .AllowCredentials()); // Allow credentials (like cookies)
 
 app.UseAuthentication();
 app.UseAuthorization();
