@@ -1,5 +1,6 @@
 using api.Data;
 using api.Interfaces;
+using api.IServices;
 using api.Models;
 using api.Repositories;
 using api.Service;
@@ -92,7 +93,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<IActionDataRepository, ActionDataRepository>();
-builder.Services.AddScoped<IActionDataRepository, ActionDataRepository>();
+builder.Services.AddScoped<IActionDataService, ActionDataService>();
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IVideoRepository, VideoRepository>();
 builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();

@@ -13,7 +13,7 @@ namespace api.Interfaces
         Task<List<ActionData>> GetAllAsync(ActionDataQueryObject queryObject);
         Task<ActionData?> GetByIdAsync(int id);
         Task<ActionData> CreateAsync(ActionData actionDataModel);
-        Task<ActionData?> UpdateAsync(int id, ActionDataUpdateDto actionDataUpdateDto);
+        Task<ActionData?> UpdateAsync(int id, ActionData actionDataModel);
         Task<ActionData?> DeleteAsync(int id);
     }
 }

@@ -32,24 +32,12 @@ namespace api.Mappers
                 AppUserId = string.Empty,
             };
         }
-        public static void UpdateFromDto(this ActionData actionData, ActionDataUpdateDto dto)
+        public static ActionData ToActionDataFromUpdateDto(this ActionDataUpdateDto actionDataUpdateDto, ActionData existingActionData)
         {
-            if (dto.Action != null)
-            {
-                actionData.Action = dto.Action;
-            }
-            if (dto.ElementClass != null)
-            {
-                actionData.ElementClass = dto.ElementClass;
-            }
-            if (dto.Timestamp.HasValue)
-            {
-                actionData.Timestamp = dto.Timestamp.Value;
-            }
-            if (dto.Quantity.HasValue)
-            {
-                actionData.Quantity = dto.Quantity.Value;
-            }
+            existingActionData.Action = actionDataUpdateDto.Action;
+            existingActionData.ElementClass = actionDataUpdateDto.ElementClass;
+            existingActionData.Quantity = actionDataUpdateDto.Quantity ?? existingActionData.Quantity;
+            return existingActionData;
         }
     }
 }

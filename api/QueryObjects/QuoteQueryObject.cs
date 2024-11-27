@@ -11,5 +11,6 @@ namespace api.QueryObjects
         public string Author { get; set; } = string.Empty;
 
         public QuoteType Type { get; set; } = 0;
+        public string AppUserId { get; internal set; }
     }
 }

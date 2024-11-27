@@ -69,16 +69,16 @@ namespace api.Repositories
             return await _context.ActionDatas.Include(ad => ad.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<ActionData?> UpdateAsync(int id, ActionDataUpdateDto updatedActionDataDto)
+        public async Task<ActionData?> UpdateAsync(int id, ActionData actionDataModel)
         {
-            var existingActionData = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == id);
+            var existingActionData = await _context.ActionDatas.FirstOrDefaultAsync(x => x.Id == actionDataModel.Id);
 
             if (existingActionData == null)
             {
                 return null;
             }
 
-            existingActionData.UpdateFromDto(updatedActionDataDto);
+            existingActionData = actionDataModel;
 
             await _context.SaveChangesAsync();
 

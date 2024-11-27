@@ -16,5 +16,11 @@ namespace api.Models
         public string Author { get; set; } = string.Empty;
         
         public QuoteType Type { get; set; }
+          
+        // Foreign key for AppUser
+        [Required]
+        public string AppUserId { get; set; } = string.Empty;
+
+        public AppUser? AppUser { get; set; }
     }
 }

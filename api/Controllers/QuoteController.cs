@@ -14,105 +14,98 @@ using api.QueryObjects;
 using api.Dtos.Quote;
 using api.Mappers;
 
-namespace api.Controllers
+[Route("api/quote")]
+[ApiController]
+public class QuoteController : ControllerBase
 {
-    [Route("api/quote")]
-    [ApiController]
-    public class quoteController : ControllerBase
+    private readonly IQuoteRepository _quoteRepo;
+    private readonly UserManager<AppUser> _userManager;
+
+    public QuoteController(IQuoteRepository quoteRepo, UserManager<AppUser> userManager)
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IQuoteRepository _quoteRepo;
+        _quoteRepo = quoteRepo;
+        _userManager = userManager;
+    }
 
-        private readonly UserManager<AppUser> _userManager;
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] QuoteQueryObject query)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-        public quoteController(ApplicationDbContext context, IQuoteRepository quoteRepo, UserManager<AppUser> userManager)
-        {
-            _quoteRepo = quoteRepo;
-            _context = context;
-            _userManager = userManager;
-        }
+        var username = User.GetUsername();
+        var appUser = await _userManager.FindByNameAsync(username);
+        query.AppUserId = appUser.Id;
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] QuoteQueryObject query)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        var quotes = await _quoteRepo.GetAllAsync(query);
+        var quoteDtoList = quotes.Select(s => s.ToQuoteDto()).ToList();
 
-            var quotes = await _quoteRepo.GetAllAsync(query);
+        if (!quoteDtoList.Any())
+            return NotFound("Quote not found");
 
-            var quoteDtoList = quotes.Select(s => s.ToQuoteDto()).ToList();
-            
-            if (!quoteDtoList.Any())
-            {
-                return NotFound("Quote not found");
-            }
+        return Ok(quoteDtoList);
+    }
 
-            return Ok(quoteDtoList);
-        }
+    [Authorize]
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        var quote = await _quoteRepo.GetByIdAsync(id);
 
-            var quote = await _quoteRepo.GetByIdAsync(id);
+        if (quote == null)
+            return NotFound();
 
-            if (quote == null)
-            {
-                return NotFound();
-            }
+        return Ok(quote.ToQuoteDto());
+    }
 
-            return Ok(quote.ToQuoteDto());
-        }
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] QuoteCreateDto quoteCreateDto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] QuoteCreateDto quoteCreateDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        var username = User.GetUsername();
+        var appUser = await _userManager.FindByNameAsync(username);
 
-            var quoteModel = quoteCreateDto.ToQuoteFromCreateDto();
-            await _quoteRepo.CreateAsync(quoteModel);
-            return CreatedAtAction(nameof(GetById), new { id = quoteModel.Id }, quoteModel.ToQuoteDto());
-        }
+        var quoteModel = quoteCreateDto.ToQuoteFromCreateDto();
+        quoteModel.AppUserId = appUser.Id;
 
-        [Authorize(Roles = "Admin")]
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] QuoteUpdateDto quoteUpdateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        await _quoteRepo.CreateAsync(quoteModel);
+        return CreatedAtAction(nameof(GetById), new { id = quoteModel.Id }, quoteModel.ToQuoteDto());
+    }
 
-            var updatedQuote = await _quoteRepo.UpdateAsync(id, quoteUpdateDto);
+    [Authorize]
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] QuoteUpdateDto quoteUpdateDto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-            if (updatedQuote == null)
-            {
-                return NotFound("Quote not found!");
-            }
+        var existingQuote = await _quoteRepo.GetByIdAsync(id);
+        if (existingQuote == null)
+            return NotFound("Quote not found!");
 
-            return Ok(updatedQuote.ToQuoteDto());
-        }
+        var updatedQuote = await _quoteRepo.UpdateAsync(id, quoteUpdateDto);
+        return Ok(updatedQuote.ToQuoteDto());
+    }
 
-        [Authorize(Roles = "Admin")]
-        [HttpDelete]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+    [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-            var quoteModel = await _quoteRepo.DeleteAsync(id);
+        var quote = await _quoteRepo.GetByIdAsync(id);
+        if (quote == null)
+            return NotFound("Quote does not exist");
 
-            if (quoteModel == null)
-            {
-                return NotFound("quote does not exist");
-            }
-
-            return Ok(quoteModel);
-        }
+        var deletedQuote = await _quoteRepo.DeleteAsync(id);
+        return Ok(deletedQuote);
     }
 }

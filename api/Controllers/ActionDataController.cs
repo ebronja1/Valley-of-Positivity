@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +8,7 @@ using api.Models;
 using api.Interfaces;
 using api.QueryObjects;
 using api.Dtos.ActionData;
+using api.IServices;
 using api.Mappers;
 
 namespace api.Controllers
@@ -20,15 +17,11 @@ namespace api.Controllers
     [ApiController]
     public class ActionDataController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IActionDataRepository _actionDataRepo;
-
+        private readonly IActionDataService _actionDataService;
         private readonly UserManager<AppUser> _userManager;
-
-        public ActionDataController(ApplicationDbContext context, IActionDataRepository actionDataRepo, UserManager<AppUser> userManager)
+        public ActionDataController(IActionDataService actionDataService, UserManager<AppUser> userManager)
         {
-            _actionDataRepo = actionDataRepo;
-            _context = context;
+            _actionDataService = actionDataService;
             _userManager = userManager;
         }
         
@@ -38,21 +31,14 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             query.AppUserId = appUser.Id;
 
-            var actionDatas = await _actionDataRepo.GetAllAsync(query);
+            var actionDatas = await _actionDataService.GetAllActionDatas(query);
 
-            var actionDataDtoList = actionDatas.Select(s => s.ToActionDataDto()).ToList();
-
-            if (!actionDataDtoList.Any())
-            {
-                return NotFound("ActionData not found");
-            }
-
-            return Ok(actionDataDtoList);
+            return Ok(actionDatas);
         }
 
         [Authorize]
@@ -62,14 +48,14 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var actionData = await _actionDataRepo.GetByIdAsync(id);
+            var actionData = await _actionDataService.GetActionDataById(id);
 
             if (actionData == null)
             {
                 return NotFound();
             }
 
-            return Ok(actionData.ToActionDataDto());
+            return Ok(actionData);
         }
 
         [Authorize]
@@ -81,12 +67,13 @@ namespace api.Controllers
 
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-
-            var actionDataModel = actionDataCreateDto.ToActionDataFromCreateDto();
-            actionDataModel.AppUserId = appUser.Id;
             
-            await _actionDataRepo.CreateAsync(actionDataModel);
-            return Ok(actionDataModel.ToActionDataDto());
+            var actionData = await _actionDataService.CreateActionData(actionDataCreateDto, appUser.Id);
+            if (actionData == null)
+            {
+                return NotFound();
+            }
+            return Ok(actionData);
         }
 
         [Authorize]
@@ -98,7 +85,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var updatedActionData = await _actionDataRepo.UpdateAsync(id, actionDataUpdateDto);
+            var updatedActionData = await _actionDataService.UpdateActionData(id, actionDataUpdateDto);
 
             if (updatedActionData == null)
             {
@@ -116,14 +103,14 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var actionDataModel = await _actionDataRepo.DeleteAsync(id);
+            var actionData = await _actionDataService.DeleteActionData(id);
 
-            if (actionDataModel == null)
+            if (actionData == null)
             {
                 return NotFound("ActionData does not exist");
             }
 
-            return Ok(actionDataModel);
+            return Ok(actionData);
         }
     }
 }
