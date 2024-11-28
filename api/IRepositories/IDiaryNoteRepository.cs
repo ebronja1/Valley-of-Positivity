@@ -4,7 +4,7 @@ using api.Dtos.DiaryNote;
 using api.Models;
 using api.QueryObjects;
 
-namespace api.Interfaces
+namespace api.Repositories
 {
     public interface IDiaryNoteRepository
     {

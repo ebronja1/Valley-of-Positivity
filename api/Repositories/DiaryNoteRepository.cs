@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using api.Data;
-using api.Interfaces;
+using api.IRepositories;
 using api.Models;
 using api.QueryObjects;
 using api.Dtos.DiaryNote;

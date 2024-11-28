@@ -11,7 +11,5 @@ namespace api.Dtos.ActionData
         public string? ElementClass { get; set; }
         public DateTime? Timestamp { get; set; }
         public int? Quantity { get; set; }
-        
-        public string? AppUserId { get; set; }
     }
 }

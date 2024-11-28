@@ -1,9 +1,6 @@
-using System;
-using System.Threading.Tasks;
 using api.Dtos.Account;
-using api.Interfaces;
+using api.IServices;
 using api.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.QueryObjects;
-using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using api.Models;
 using api.Dtos.Quote;

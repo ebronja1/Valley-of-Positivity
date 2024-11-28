@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using api.Extensions;
 using api.Data;
 using api.Models;
-using api.Interfaces;
 using api.QueryObjects;
 using api.Dtos.Diary;
 using api.Mappers;
+using api.Repositories;
 
 namespace api.Controllers
 {

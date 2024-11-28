@@ -6,7 +6,7 @@ using api.Dtos.Video;
 using api.Models;
 using api.QueryObjects;
 
-namespace api.Interfaces
+namespace api.Repositories
 {
     public interface IVideoRepository
     {

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using api.Extensions;
 using api.Data;
 using api.Models;
-using api.Interfaces;
 using api.QueryObjects;
 using api.Dtos.Quote;
 using api.Mappers;
+using api.Repositories;
 
 [Route("api/quote")]
 [ApiController]

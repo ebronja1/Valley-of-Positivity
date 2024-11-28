@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.Dtos;
-using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using api.QueryObjects;
 using api.Dtos.DiaryNote;
 using Microsoft.AspNetCore.Identity;
 using api.Extensions;
+using api.Repositories;
 
 namespace api.Controllers
 {

@@ -1,14 +1,17 @@
 using api.Data;
-using api.Interfaces;
+using api.IRepositories;
 using api.IServices;
+using api.Mappers;
 using api.Models;
 using api.Repositories;
 using api.Service;
+using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +94,9 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+
 
 builder.Services.AddScoped<IActionDataRepository, ActionDataRepository>();
 builder.Services.AddScoped<IActionDataService, ActionDataService>();

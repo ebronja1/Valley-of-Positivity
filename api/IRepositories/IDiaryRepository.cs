@@ -7,7 +7,7 @@ using api.Models;
 using api.QueryObjects;
 using api.Dtos.Diary;
 
-namespace api.Interfaces
+namespace api.Repositories
 {
     public interface IDiaryRepository
     {

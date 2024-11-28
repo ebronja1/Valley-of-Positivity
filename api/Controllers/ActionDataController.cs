@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using api.Extensions;
-using api.Data;
 using api.Models;
-using api.Interfaces;
-using api.QueryObjects;
 using api.Dtos.ActionData;
 using api.IServices;
-using api.Mappers;
 
 namespace api.Controllers
 {
@@ -27,16 +22,16 @@ namespace api.Controllers
         
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] ActionDataQueryObject query)
+        public async Task<ActionResult<ResponsePage<ActionDataDto>>> GetAll([FromQuery] SearchActionDataParamsDto searchParams)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
-            query.AppUserId = appUser.Id;
+            searchParams.AppUserId = appUser.Id;
 
-            var actionDatas = await _actionDataService.GetAllActionDatas(query);
+            var actionDatas = await _actionDataService.GetAllActionDatas(searchParams);
 
             return Ok(actionDatas);
         }
@@ -65,10 +60,16 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var username = User.GetUsername();
+            var username = User?.GetUsername();
+            if (string.IsNullOrEmpty(username))
+            {
+                return Unauthorized("User is not authenticated.");
+            }
+
             var appUser = await _userManager.FindByNameAsync(username);
+            actionDataCreateDto.AppUserId = appUser.Id;
             
-            var actionData = await _actionDataService.CreateActionData(actionDataCreateDto, appUser.Id);
+            var actionData = await _actionDataService.CreateActionData(actionDataCreateDto);
             if (actionData == null)
             {
                 return NotFound();
